@@ -10,12 +10,10 @@ project(path_tracking_py)
 find_package(catkin REQUIRED COMPONENTS
   geometry_msgs
   nav_msgs
-  roscpp
   rospy
   actionlib
   move_base_msgs
   tf
-  # grid_map_ros
 )
 
 find_package(jsoncpp REQUIRED)
@@ -74,34 +72,3 @@ include_directories(
 include
   ${catkin_INCLUDE_DIRS}
 )
-
-add_executable(path_tracking   
-  src/main.cpp
-  src/tracking.cpp
-  src/pure_pursuit.cpp
-  src/reference_plan.cpp
-  src/ros_interface.cpp
-  src/robot.cpp
-  src/utils.cpp
-)
-
-add_executable(map_grid_test   
-  src/map.cpp
-)
-
-add_executable(tracking_sim   
-  src/tracking_sim.cpp
-  src/reference_plan.cpp
-  src/ros_interface.cpp
-  src/robot.cpp
-  src/utils.cpp
-)
-
-add_dependencies(path_tracking ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
-target_link_libraries(path_tracking ${catkin_LIBRARIES} jsoncpp)
-
-add_dependencies(map_grid_test ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
-target_link_libraries(map_grid_test ${catkin_LIBRARIES})
-
-add_dependencies(tracking_sim ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
-target_link_libraries(tracking_sim ${catkin_LIBRARIES} jsoncpp)
