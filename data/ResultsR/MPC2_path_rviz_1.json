@@ -1,0 +1,8 @@
+{
+  "dist_error": 0.078, 
+  "len": 0.0, 
+  "t": 61.22, 
+  "path": "path_rviz_1", 
+  "method": "MPC2", 
+  "trav_w": 21.81
+}

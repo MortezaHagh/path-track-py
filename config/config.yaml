@@ -1,0 +1,7 @@
+input_method: "func"
+input_name: "path_rviz_4.json"
+pose_method: "Odom"
+start_method: "normal"
+by_costmap: False
+method: "PurePursuit"
+pkg_dir: "/home/piotr/catkin_ws/src/mh/path_tracking/"

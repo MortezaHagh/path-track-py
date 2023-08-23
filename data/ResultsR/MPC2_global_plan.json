@@ -1,0 +1,8 @@
+{
+  "dist_error": 0.112, 
+  "len": 0.0, 
+  "t": 30.06, 
+  "path": "global_plan", 
+  "method": "MPC2", 
+  "trav_w": 6.98
+}

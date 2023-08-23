@@ -1,0 +1,5 @@
+input_method: "json" # func, json, global
+input_name: path_rviz_4.json
+by_costmap: False
+pose_method: Odom # Tf, Odom
+start_method: normal # from_global_plan, normal

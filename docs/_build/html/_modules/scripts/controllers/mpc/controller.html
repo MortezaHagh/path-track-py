@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html class="writer-html4" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>scripts.controllers.mpc.controller &mdash; Path Tracking  documentation</title><link rel="stylesheet" href="../../../../_static/css/theme.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  <script id="documentation_options" data-url_root="../../../../" src="../../../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../../../_static/language_data.js"></script>
+    <script src="../../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../../index.html" class="icon icon-home">
+            Path Tracking
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../scripts.html">Path Tracking</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../index.html">Path Tracking</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">scripts.controllers.mpc.controller</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for scripts.controllers.mpc.controller</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">copy</span> <span class="kn">import</span> <span class="n">deepcopy</span>
+<span class="kn">from</span> <span class="nn">scipy.optimize</span> <span class="kn">import</span> <span class="n">minimize</span>
+<span class="kn">import</span> <span class="nn">scripts.pt_scripts.utils</span> <span class="k">as</span> <span class="nn">utils</span> 
+
+
+<div class="viewcode-block" id="Controller"><a class="viewcode-back" href="../../../../scripts.controllers.mpc.html#scripts.controllers.mpc.controller.Controller">[docs]</a><span class="k">class</span> <span class="nc">Controller</span><span class="p">:</span>
+	<span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ref_traj</span><span class="p">,</span> <span class="n">robot</span><span class="p">,</span> <span class="n">plotting</span><span class="p">,</span> <span class="n">dt</span> <span class="o">=</span> <span class="mf">0.2</span><span class="p">):</span>
+		
+		<span class="c1"># input data (robot &amp; reference trajectory)</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">robot</span> <span class="o">=</span> <span class="n">robot</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">ref_traj</span> <span class="o">=</span> <span class="n">ref_traj</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">goal_x</span> <span class="o">=</span> <span class="n">ref_traj</span><span class="o">.</span><span class="n">x</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">goal_y</span> <span class="o">=</span> <span class="n">ref_traj</span><span class="o">.</span><span class="n">y</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+		
+		<span class="c1"># plotting</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">plotting</span> <span class="o">=</span> <span class="n">plotting</span>
+
+		<span class="c1"># controller</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">from_beggins</span> <span class="o">=</span> <span class="kc">True</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">controller_name</span> <span class="o">=</span> <span class="s2">&quot;MPC&quot;</span>	<span class="c1"># PID or MPC</span>
+
+		<span class="c1"># # settings</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">dt</span> <span class="o">=</span> <span class="n">dt</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">dist_thresh</span> <span class="o">=</span> <span class="mf">0.3</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">goal_dist_thresh</span> <span class="o">=</span> <span class="mf">0.3</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">dist_thresh_horizon</span> <span class="o">=</span> <span class="mf">1.2</span>
+		<span class="c1"># set the next target if velocity is less than these values:</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">stop_v_thresh</span> <span class="o">=</span> <span class="mf">0.06</span> 
+		<span class="bp">self</span><span class="o">.</span><span class="n">stop_w_thresh</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">deg2rad</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>
+
+		<span class="c1"># MPC settings</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">horizon</span> <span class="o">=</span> <span class="mi">5</span>
+
+		<span class="c1"># PID settings</span>
+		<span class="n">pid_linear</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;kp&#39;</span><span class="p">:</span> <span class="mf">0.5</span><span class="p">,</span> <span class="s1">&#39;kd&#39;</span><span class="p">:</span> <span class="mf">0.1</span><span class="p">,</span> <span class="s1">&#39;ki&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">}</span>
+		<span class="n">pid_angular</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;kp&#39;</span><span class="p">:</span> <span class="mf">3.0</span><span class="p">,</span> <span class="s1">&#39;kd&#39;</span><span class="p">:</span> <span class="mf">0.1</span><span class="p">,</span> <span class="s1">&#39;ki&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">}</span>
+		<span class="n">pid_params</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;linear&#39;</span><span class="p">:</span><span class="n">pid_linear</span><span class="p">,</span> <span class="s1">&#39;angular&#39;</span><span class="p">:</span><span class="n">pid_angular</span><span class="p">}</span>
+
+		<span class="c1"># create controller</span>
+		<span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">controller_name</span> <span class="o">==</span> <span class="s2">&quot;PID&quot;</span><span class="p">:</span>
+			<span class="bp">self</span><span class="o">.</span><span class="n">controller</span> <span class="o">=</span> <span class="n">PID</span><span class="p">(</span><span class="n">pid_params</span><span class="p">)</span>
+		<span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">controller_name</span> <span class="o">==</span> <span class="s2">&quot;MPC&quot;</span><span class="p">:</span>			
+			<span class="bp">self</span><span class="o">.</span><span class="n">controller</span> <span class="o">=</span> <span class="n">MPC</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">dt</span><span class="p">,</span> <span class="n">horizon</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">horizon</span><span class="p">)</span>
+
+		<span class="c1"># recorded trajectory</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">rec_traj_x</span> <span class="o">=</span> <span class="p">[]</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">rec_traj_y</span> <span class="o">=</span> <span class="p">[]</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">rec_traj_yaw</span> <span class="o">=</span> <span class="p">[]</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">rec_l</span> <span class="o">=</span> <span class="mi">0</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">rec_t</span> <span class="o">=</span> <span class="mi">0</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">rec_w</span> <span class="o">=</span> <span class="mi">0</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">prev_w</span> <span class="o">=</span> <span class="mi">0</span>
+
+    <span class="c1"># --------------------------------------- control ---------------------------------------</span>
+
+<div class="viewcode-block" id="Controller.control"><a class="viewcode-back" href="../../../../scripts.controllers.mpc.html#scripts.controllers.mpc.controller.Controller.control">[docs]</a>	<span class="k">def</span> <span class="nf">control</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+		<span class="n">goal_dist</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">distance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">goal_x</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">goal_y</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">robot</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">robot</span><span class="o">.</span><span class="n">y</span><span class="p">)</span>
+
+		<span class="c1"># starting index</span>
+		<span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">from_beggins</span><span class="p">:</span>
+			<span class="n">current_idx</span> <span class="o">=</span> <span class="mi">0</span>
+		<span class="k">else</span><span class="p">:</span>
+			<span class="n">current_idx</span><span class="p">,</span> <span class="n">dists</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">find_nearest_ind</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">robot</span><span class="o">.</span><span class="n">pose</span><span class="p">)</span>
+
+		<span class="k">while</span> <span class="p">(</span><span class="n">current_idx</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">ref_traj</span><span class="o">.</span><span class="n">count</span><span class="p">):</span>
+			<span class="k">if</span> <span class="n">goal_dist</span><span class="o">&lt;</span><span class="bp">self</span><span class="o">.</span><span class="n">goal_dist_thresh</span><span class="p">:</span>
+				<span class="k">break</span>
+
+			<span class="c1"># update index and horizon</span>
+			<span class="n">_</span><span class="p">,</span> <span class="n">dists</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">find_nearest_ind</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">robot</span><span class="o">.</span><span class="n">pose</span><span class="p">)</span>
+			<span class="n">min_dist</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">dists</span><span class="p">[</span><span class="n">current_idx</span><span class="p">:</span><span class="n">current_idx</span><span class="o">+</span><span class="bp">self</span><span class="o">.</span><span class="n">horizon</span><span class="p">])</span>
+			<span class="c1"># min_dist = dists[current_idx]</span>
+			<span class="k">while</span> <span class="n">min_dist</span><span class="o">&lt;</span><span class="bp">self</span><span class="o">.</span><span class="n">dist_thresh</span> <span class="ow">and</span> <span class="n">current_idx</span><span class="o">!=</span> <span class="nb">len</span><span class="p">(</span><span class="n">dists</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">:</span>
+				<span class="n">current_idx</span><span class="o">+=</span> <span class="mi">1</span>
+				<span class="n">min_dist</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">dists</span><span class="p">[</span><span class="n">current_idx</span><span class="p">:</span><span class="n">current_idx</span><span class="o">+</span><span class="bp">self</span><span class="o">.</span><span class="n">horizon</span><span class="p">])</span>
+				<span class="c1"># min_dist = dists[current_idx]</span>
+
+			<span class="n">horizon</span> <span class="o">=</span> <span class="mi">1</span>
+			<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">horizon</span><span class="p">):</span>
+				<span class="k">if</span> <span class="p">(</span><span class="n">current_idx</span><span class="o">+</span><span class="n">i</span><span class="p">)</span><span class="o">&lt;</span><span class="bp">self</span><span class="o">.</span><span class="n">ref_traj</span><span class="o">.</span><span class="n">count</span><span class="o">-</span><span class="mi">1</span> <span class="ow">and</span> <span class="n">dists</span><span class="p">[</span><span class="n">current_idx</span><span class="o">+</span><span class="n">i</span><span class="p">]</span><span class="o">&lt;</span><span class="bp">self</span><span class="o">.</span><span class="n">dist_thresh_horizon</span> <span class="p">:</span>
+					<span class="n">horizon</span> <span class="o">+=</span> <span class="mi">1</span>
+				<span class="k">else</span><span class="p">:</span>
+					<span class="k">break</span>
+
+			<span class="c1"># robot pose and lookahead point</span>
+			<span class="n">lookahead_point</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ref_traj</span><span class="o">.</span><span class="n">get_pose_vec</span><span class="p">(</span><span class="n">current_idx</span><span class="p">)</span>
+			<span class="bp">self</span><span class="o">.</span><span class="n">lookahead_point</span> <span class="o">=</span> <span class="n">lookahead_point</span>
+
+			<span class="c1"># calculate velocity</span>
+			<span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">controller_name</span> <span class="o">==</span> <span class="s2">&quot;PID&quot;</span><span class="p">:</span>
+				<span class="n">cmd_v</span><span class="p">,</span> <span class="n">cmd_w</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">controller</span><span class="o">.</span><span class="n">get_control_inputs</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">robot</span><span class="o">.</span><span class="n">pose</span><span class="p">,</span> <span class="n">lookahead_point</span><span class="p">)</span> <span class="c1"># self.robot.get_points()[2]</span>
+			
+			<span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">controller_name</span> <span class="o">==</span> <span class="s2">&quot;MPC&quot;</span><span class="p">:</span>
+				<span class="n">cmd_v</span><span class="p">,</span> <span class="n">cmd_w</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">controller</span><span class="o">.</span><span class="n">optimize</span><span class="p">(</span><span class="n">robot</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">robot</span><span class="p">,</span> <span class="n">points</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ref_traj</span><span class="o">.</span><span class="n">xy_poses</span><span class="p">[</span><span class="n">current_idx</span><span class="p">:</span><span class="n">current_idx</span><span class="o">+</span><span class="n">horizon</span><span class="p">])</span>
+
+			<span class="c1"># check vel</span>
+			<span class="k">if</span> <span class="n">cmd_v</span><span class="o">&lt;</span><span class="bp">self</span><span class="o">.</span><span class="n">stop_v_thresh</span> <span class="ow">and</span> <span class="nb">abs</span><span class="p">(</span><span class="n">cmd_w</span><span class="p">)</span><span class="o">&lt;</span><span class="bp">self</span><span class="o">.</span><span class="n">stop_w_thresh</span><span class="p">:</span>
+				<span class="n">current_idx</span> <span class="o">+=</span> <span class="mi">1</span>
+				<span class="c1"># continue</span>
+
+			<span class="n">cmd_v</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="nb">max</span><span class="p">(</span><span class="n">cmd_v</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">robot</span><span class="o">.</span><span class="n">v_min</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">robot</span><span class="o">.</span><span class="n">v_max</span><span class="p">)</span>
+			<span class="n">cmd_w</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="nb">max</span><span class="p">(</span><span class="n">cmd_w</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">robot</span><span class="o">.</span><span class="n">w_min</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">robot</span><span class="o">.</span><span class="n">w_max</span><span class="p">)</span>
+
+			<span class="c1"># update</span>
+			<span class="bp">self</span><span class="o">.</span><span class="n">robot</span><span class="o">.</span><span class="n">set_robot_velocity</span><span class="p">(</span><span class="n">cmd_v</span><span class="p">,</span> <span class="n">cmd_w</span><span class="p">)</span>
+			<span class="bp">self</span><span class="o">.</span><span class="n">robot</span><span class="o">.</span><span class="n">update_sim</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">dt</span><span class="p">)</span>
+			<span class="bp">self</span><span class="o">.</span><span class="n">robot</span><span class="o">.</span><span class="n">update_robot</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">robot</span><span class="o">.</span><span class="n">get_model_pose</span><span class="p">())</span>
+			<span class="n">goal_dist</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">cmd_v</span><span class="p">,</span> <span class="n">cmd_w</span><span class="p">)</span></div>
+			
+	<span class="c1"># -------------------------------------- update --------------------------------------</span>
+
+<div class="viewcode-block" id="Controller.update"><a class="viewcode-back" href="../../../../scripts.controllers.mpc.html#scripts.controllers.mpc.controller.Controller.update">[docs]</a>	<span class="k">def</span> <span class="nf">update</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cmd_v</span><span class="p">,</span> <span class="n">cmd_w</span><span class="p">):</span>
+		<span class="c1"># goal distance</span>
+		<span class="n">goal_dist</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">distance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">goal_x</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">goal_y</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">robot</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">robot</span><span class="o">.</span><span class="n">y</span><span class="p">)</span>
+
+		<span class="c1"># record trajectory</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">rec_traj_x</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">robot</span><span class="o">.</span><span class="n">x</span><span class="p">)</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">rec_traj_y</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">robot</span><span class="o">.</span><span class="n">y</span><span class="p">)</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">rec_traj_yaw</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">robot</span><span class="o">.</span><span class="n">yaw</span><span class="p">)</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">rec_l</span> <span class="o">+=</span> <span class="n">cmd_v</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">dt</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">rec_t</span> <span class="o">+=</span> <span class="bp">self</span><span class="o">.</span><span class="n">dt</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">rec_w</span> <span class="o">+=</span> <span class="nb">abs</span><span class="p">(</span><span class="n">cmd_w</span><span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">prev_w</span><span class="p">)</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">prev_w</span> <span class="o">=</span> <span class="n">cmd_w</span>
+
+		<span class="c1"># direction vector [dx_th, dy_th]</span>
+		<span class="n">dx_th</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">robot</span><span class="o">.</span><span class="n">yaw</span><span class="p">)</span>
+		<span class="n">dy_th</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">robot</span><span class="o">.</span><span class="n">yaw</span><span class="p">)</span>
+		
+		<span class="c1"># update plot</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">plotting</span><span class="o">.</span><span class="n">update_plot</span><span class="p">(</span><span class="n">dx_th</span><span class="p">,</span> <span class="n">dy_th</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">robot</span><span class="o">.</span><span class="n">pose</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">lookahead_point</span><span class="p">)</span>
+		
+		<span class="c1"># result</span>
+		<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;cmd_v:&quot;</span><span class="p">,</span> <span class="nb">round</span><span class="p">(</span><span class="n">cmd_v</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="s2">&quot;cmd_w:&quot;</span><span class="p">,</span> <span class="nb">round</span><span class="p">(</span><span class="n">cmd_w</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>
+		<span class="nb">print</span><span class="p">(</span><span class="s2">&quot; -------------------------------------- &quot;</span><span class="p">)</span>
+		
+		<span class="k">return</span> <span class="n">goal_dist</span></div>
+	
+<div class="viewcode-block" id="Controller.find_nearest_ind"><a class="viewcode-back" href="../../../../scripts.controllers.mpc.html#scripts.controllers.mpc.controller.Controller.find_nearest_ind">[docs]</a>	<span class="k">def</span> <span class="nf">find_nearest_ind</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pose</span><span class="p">):</span>
+		<span class="n">dists</span> <span class="o">=</span> <span class="p">[</span><span class="n">utils</span><span class="o">.</span><span class="n">distance</span><span class="p">(</span><span class="n">pose</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">pose</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">p</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">p</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">ref_traj</span><span class="o">.</span><span class="n">xy_poses</span><span class="p">]</span>
+		<span class="n">dists</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">dists</span><span class="p">)</span>
+		<span class="n">idx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argmin</span><span class="p">(</span><span class="n">dists</span><span class="p">)</span>
+		<span class="k">return</span> <span class="n">idx</span><span class="p">,</span> <span class="n">dists</span></div></div>
+
+<span class="c1"># -------------------------------------- PID --------------------------------------</span>
+
+<div class="viewcode-block" id="PID"><a class="viewcode-back" href="../../../../scripts.controllers.mpc.html#scripts.controllers.mpc.controller.PID">[docs]</a><span class="k">class</span> <span class="nc">PID</span><span class="p">:</span>
+	<span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pid_params</span><span class="p">):</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">kp_linear</span> <span class="o">=</span> <span class="n">pid_params</span><span class="p">[</span><span class="s1">&#39;linear&#39;</span><span class="p">][</span><span class="s1">&#39;kp&#39;</span><span class="p">]</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">kd_linear</span> <span class="o">=</span> <span class="n">pid_params</span><span class="p">[</span><span class="s1">&#39;linear&#39;</span><span class="p">][</span><span class="s1">&#39;kd&#39;</span><span class="p">]</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">ki_linear</span> <span class="o">=</span> <span class="n">pid_params</span><span class="p">[</span><span class="s1">&#39;linear&#39;</span><span class="p">][</span><span class="s1">&#39;ki&#39;</span><span class="p">]</span>
+
+		<span class="bp">self</span><span class="o">.</span><span class="n">kp_angular</span> <span class="o">=</span> <span class="n">pid_params</span><span class="p">[</span><span class="s1">&#39;angular&#39;</span><span class="p">][</span><span class="s1">&#39;kp&#39;</span><span class="p">]</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">kd_angular</span> <span class="o">=</span> <span class="n">pid_params</span><span class="p">[</span><span class="s1">&#39;angular&#39;</span><span class="p">][</span><span class="s1">&#39;kd&#39;</span><span class="p">]</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">ki_angular</span> <span class="o">=</span> <span class="n">pid_params</span><span class="p">[</span><span class="s1">&#39;angular&#39;</span><span class="p">][</span><span class="s1">&#39;ki&#39;</span><span class="p">]</span>
+
+		<span class="bp">self</span><span class="o">.</span><span class="n">error_ang_last</span> <span class="o">=</span> <span class="mi">0</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">error_lin_last</span> <span class="o">=</span> <span class="mi">0</span>
+
+		<span class="c1"># self.prev_body_to_goal = 0</span>
+		<span class="c1"># self.prev_waypoint_idx = -1</span>
+
+
+<div class="viewcode-block" id="PID.get_control_inputs"><a class="viewcode-back" href="../../../../scripts.controllers.mpc.html#scripts.controllers.mpc.controller.PID.get_control_inputs">[docs]</a>	<span class="k">def</span> <span class="nf">get_control_inputs</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">current_pose</span><span class="p">,</span> <span class="n">goal_x</span><span class="p">):</span>
+		<span class="n">error_position</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">distance</span><span class="p">(</span><span class="n">current_pose</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">current_pose</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">goal_x</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">goal_x</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+		
+		<span class="n">body_to_goal</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arctan2</span><span class="p">(</span><span class="n">goal_x</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">-</span> <span class="n">current_pose</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">goal_x</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="n">current_pose</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+		<span class="n">error_angle</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">angle_diff</span><span class="p">(</span><span class="n">body_to_goal</span><span class="p">,</span> <span class="n">current_pose</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+
+		<span class="n">linear_velocity_control</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">kp_linear</span><span class="o">*</span><span class="n">error_position</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">kd_linear</span><span class="o">*</span><span class="p">(</span><span class="n">error_position</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">error_lin_last</span><span class="p">)</span>
+		<span class="n">angular_velocity_control</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">kp_angular</span><span class="o">*</span><span class="n">error_angle</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">kd_angular</span><span class="o">*</span><span class="p">(</span><span class="n">error_angle</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">error_ang_last</span><span class="p">)</span>
+
+		<span class="bp">self</span><span class="o">.</span><span class="n">error_ang_last</span> <span class="o">=</span> <span class="n">error_angle</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">error_lin_last</span> <span class="o">=</span> <span class="n">error_position</span>
+
+		<span class="c1"># self.prev_waypoint_idx = waypoint_idx</span>
+		<span class="c1"># self.prev_body_to_goal = body_to_goal</span>
+
+		<span class="k">if</span> <span class="n">linear_velocity_control</span><span class="o">&gt;</span><span class="mi">5</span><span class="p">:</span>
+			<span class="n">linear_velocity_control</span> <span class="o">=</span> <span class="mi">5</span>
+
+		<span class="k">return</span> <span class="n">linear_velocity_control</span><span class="p">,</span> <span class="n">angular_velocity_control</span></div></div>
+
+<span class="c1"># -------------------------------------- MPC --------------------------------------</span>
+
+<div class="viewcode-block" id="MPC"><a class="viewcode-back" href="../../../../scripts.controllers.mpc.html#scripts.controllers.mpc.controller.MPC">[docs]</a><span class="k">class</span> <span class="nc">MPC</span><span class="p">:</span>
+	<span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dt</span><span class="p">,</span> <span class="n">horizon</span><span class="p">):</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">dt</span> <span class="o">=</span> <span class="n">dt</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">horizon</span> <span class="o">=</span> <span class="n">horizon</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">R</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">diag</span><span class="p">([</span><span class="mf">0.01</span><span class="p">,</span> <span class="mf">0.01</span><span class="p">])</span>		<span class="c1"># input cost matrix</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">Rd</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">diag</span><span class="p">([</span><span class="mf">0.01</span><span class="p">,</span> <span class="mf">0.01</span><span class="p">])</span>		<span class="c1"># input difference cost matrix</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">Q</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">diag</span><span class="p">([</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">])</span>		<span class="c1"># state cost matrix</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">Qf</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">Q</span>					<span class="c1"># state final matrix</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">H</span> <span class="o">=</span> <span class="mf">0.5</span>						<span class="c1"># heading cost matrix</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">CVW</span> <span class="o">=</span> <span class="mf">0.1</span>
+
+<div class="viewcode-block" id="MPC.cost"><a class="viewcode-back" href="../../../../scripts.controllers.mpc.html#scripts.controllers.mpc.controller.MPC.cost">[docs]</a>	<span class="k">def</span> <span class="nf">cost</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">u_k</span><span class="p">,</span> <span class="n">robot</span><span class="p">,</span> <span class="n">path</span><span class="p">):</span>
+		<span class="n">path</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+		<span class="n">controller_robot</span> <span class="o">=</span> <span class="n">deepcopy</span><span class="p">(</span><span class="n">robot</span><span class="p">)</span>
+		<span class="n">u_k</span> <span class="o">=</span> <span class="n">u_k</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">horizon</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">T</span>
+		<span class="n">z_k</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="mi">2</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">horizon</span><span class="o">+</span><span class="mi">1</span><span class="p">))</span>
+
+		<span class="n">desired_state</span> <span class="o">=</span> <span class="n">path</span><span class="o">.</span><span class="n">T</span>
+
+		<span class="n">cost</span> <span class="o">=</span> <span class="mf">0.0</span>
+		<span class="n">C</span> <span class="o">=</span> <span class="mi">1</span>
+		<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">horizon</span><span class="p">):</span>
+			<span class="n">controller_robot</span><span class="o">.</span><span class="n">set_robot_velocity</span><span class="p">(</span><span class="n">u_k</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="n">i</span><span class="p">],</span> <span class="n">u_k</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="n">i</span><span class="p">])</span>
+			<span class="n">controller_robot</span><span class="o">.</span><span class="n">update_sim</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">dt</span><span class="p">)</span>
+			<span class="n">current_pose</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">controller_robot</span><span class="o">.</span><span class="n">get_state</span><span class="p">()</span>
+			<span class="n">z_k</span><span class="p">[:,</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">current_pose</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">current_pose</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">]]</span>
+			<span class="n">h</span> <span class="o">=</span> <span class="n">controller_robot</span><span class="o">.</span><span class="n">get_los</span><span class="p">(</span><span class="n">path</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+
+			<span class="k">if</span> <span class="n">i</span> <span class="o">==</span><span class="mi">0</span><span class="p">:</span>
+				<span class="n">C</span> <span class="o">=</span> <span class="mi">1</span>
+			<span class="n">cost</span> <span class="o">+=</span> <span class="bp">self</span><span class="o">.</span><span class="n">H</span><span class="o">*</span><span class="n">utils</span><span class="o">.</span><span class="n">angle_diff</span><span class="p">(</span><span class="n">h</span><span class="p">,</span> <span class="n">current_pose</span><span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span><span class="o">**</span><span class="mi">2</span>
+			<span class="n">cost</span> <span class="o">+=</span> <span class="bp">self</span><span class="o">.</span><span class="n">CVW</span> <span class="o">*</span> <span class="p">(</span><span class="n">u_k</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="n">i</span><span class="p">]</span><span class="o">*</span><span class="n">u_k</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="n">i</span><span class="p">])</span><span class="o">**</span><span class="mi">2</span>
+
+			<span class="n">cost</span> <span class="o">+=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">R</span><span class="p">,</span> <span class="n">u_k</span><span class="p">[:,</span><span class="n">i</span><span class="p">]</span><span class="o">**</span><span class="mi">2</span><span class="p">))</span>  			   			<span class="c1">#	np.sum(self.R@(u_k[:,i]**2))</span>
+			<span class="n">cost</span> <span class="o">+=</span> <span class="n">C</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">Q</span><span class="p">,</span> <span class="n">desired_state</span><span class="p">[:,</span><span class="n">i</span><span class="p">]</span><span class="o">-</span><span class="n">z_k</span><span class="p">[:,</span><span class="n">i</span><span class="p">])</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span> 	<span class="c1">#	np.sum(self.Q@((desired_state[:,i]-z_k[:,i])**2))</span>
+			<span class="k">if</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">horizon</span><span class="o">-</span><span class="mi">1</span><span class="p">):</span>     
+				<span class="n">cost</span> <span class="o">+=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">Rd</span><span class="p">,</span> <span class="n">u_k</span><span class="p">[:,</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">u_k</span><span class="p">[:,</span><span class="n">i</span><span class="p">])</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>  		<span class="c1">#	np.sum(self.Rd@((u_k[:,i+1] - u_k[:,i])**2))</span>
+
+		<span class="k">return</span> <span class="n">cost</span></div>
+
+<div class="viewcode-block" id="MPC.optimize"><a class="viewcode-back" href="../../../../scripts.controllers.mpc.html#scripts.controllers.mpc.controller.MPC.optimize">[docs]</a>	<span class="k">def</span> <span class="nf">optimize</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">robot</span><span class="p">,</span> <span class="n">points</span><span class="p">):</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">horizon</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">points</span><span class="p">)</span>
+		<span class="n">bnd</span> <span class="o">=</span> <span class="p">[(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">5</span><span class="p">),(</span><span class="n">np</span><span class="o">.</span><span class="n">deg2rad</span><span class="p">(</span><span class="o">-</span><span class="mi">60</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">deg2rad</span><span class="p">(</span><span class="mi">60</span><span class="p">))]</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">horizon</span>
+		<span class="n">result</span> <span class="o">=</span> <span class="n">minimize</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">cost</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="p">(</span><span class="n">robot</span><span class="p">,</span> <span class="n">points</span><span class="p">),</span> <span class="n">x0</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="mi">2</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">horizon</span><span class="p">)),</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;SLSQP&#39;</span><span class="p">,</span> <span class="n">bounds</span> <span class="o">=</span> <span class="n">bnd</span><span class="p">)</span>
+		<span class="k">return</span> <span class="n">result</span><span class="o">.</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>  <span class="n">result</span><span class="o">.</span><span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span></div></div>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023, mh.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

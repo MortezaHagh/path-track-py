@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html class="writer-html4" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>scripts.controllers.mpc2 package &mdash; Path Tracking  documentation</title><link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+        <script type="text/javascript" src="_static/language_data.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="scripts.controllers.pure_pursuit package" href="scripts.controllers.pure_pursuit.html" />
+    <link rel="prev" title="scripts.controllers.mpc package" href="scripts.controllers.mpc.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            Path Tracking
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="scripts.html">Path Tracking</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="scripts.html#controllers">Controllers</a><ul class="current">
+<li class="toctree-l3 current"><a class="reference internal" href="scripts.controllers.html">scripts.controllers package</a><ul class="current">
+<li class="toctree-l4 current"><a class="reference internal" href="scripts.controllers.html#subpackages">Subpackages</a></li>
+<li class="toctree-l4"><a class="reference internal" href="scripts.controllers.html#module-scripts.controllers">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="scripts.pt_scripts.html">scripts.pt_scripts package</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="scripts.html#module-scripts.tracking">Tracking</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scripts.html#module-scripts.tracking_r">Tracking Real-Time</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Path Tracking</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="scripts.html">Path Tracking</a></li>
+          <li class="breadcrumb-item"><a href="scripts.controllers.html">scripts.controllers package</a></li>
+      <li class="breadcrumb-item active">scripts.controllers.mpc2 package</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/scripts.controllers.mpc2.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <div class="section" id="scripts-controllers-mpc2-package">
+<h1>scripts.controllers.mpc2 package<a class="headerlink" href="#scripts-controllers-mpc2-package" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-scripts.controllers.mpc2.controller">
+<span id="scripts-controllers-mpc2-controller-module"></span><h2>scripts.controllers.mpc2.controller module<a class="headerlink" href="#module-scripts.controllers.mpc2.controller" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="scripts.controllers.mpc2.controller.Controller">
+<em class="property">class </em><code class="descclassname">scripts.controllers.mpc2.controller.</code><code class="descname">Controller</code><span class="sig-paren">(</span><em>ref_traj</em>, <em>robot</em>, <em>plotting</em>, <em>dt=0.2</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/scripts/controllers/mpc2/controller.html#Controller"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#scripts.controllers.mpc2.controller.Controller" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="method">
+<dt id="scripts.controllers.mpc2.controller.Controller.control">
+<code class="descname">control</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/scripts/controllers/mpc2/controller.html#Controller.control"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#scripts.controllers.mpc2.controller.Controller.control" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="scripts.controllers.mpc2.controller.Controller.update">
+<code class="descname">update</code><span class="sig-paren">(</span><em>cmd_v</em>, <em>cmd_w</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/scripts/controllers/mpc2/controller.html#Controller.update"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#scripts.controllers.mpc2.controller.Controller.update" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="scripts.controllers.mpc2.controller.Controller.find_nearest_ind">
+<code class="descname">find_nearest_ind</code><span class="sig-paren">(</span><em>pose</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/scripts/controllers/mpc2/controller.html#Controller.find_nearest_ind"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#scripts.controllers.mpc2.controller.Controller.find_nearest_ind" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="scripts.controllers.mpc2.controller.PID">
+<em class="property">class </em><code class="descclassname">scripts.controllers.mpc2.controller.</code><code class="descname">PID</code><span class="sig-paren">(</span><em>pid_params</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/scripts/controllers/mpc2/controller.html#PID"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#scripts.controllers.mpc2.controller.PID" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="method">
+<dt id="scripts.controllers.mpc2.controller.PID.get_control_inputs">
+<code class="descname">get_control_inputs</code><span class="sig-paren">(</span><em>current_pose</em>, <em>goal_x</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/scripts/controllers/mpc2/controller.html#PID.get_control_inputs"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#scripts.controllers.mpc2.controller.PID.get_control_inputs" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="scripts.controllers.mpc2.controller.MPC">
+<em class="property">class </em><code class="descclassname">scripts.controllers.mpc2.controller.</code><code class="descname">MPC</code><span class="sig-paren">(</span><em>dt</em>, <em>horizon</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/scripts/controllers/mpc2/controller.html#MPC"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#scripts.controllers.mpc2.controller.MPC" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="method">
+<dt id="scripts.controllers.mpc2.controller.MPC.cost">
+<code class="descname">cost</code><span class="sig-paren">(</span><em>u_k</em>, <em>robot</em>, <em>path</em>, <em>vels</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/scripts/controllers/mpc2/controller.html#MPC.cost"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#scripts.controllers.mpc2.controller.MPC.cost" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="scripts.controllers.mpc2.controller.MPC.optimize">
+<code class="descname">optimize</code><span class="sig-paren">(</span><em>robot</em>, <em>points</em>, <em>vels</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/scripts/controllers/mpc2/controller.html#MPC.optimize"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#scripts.controllers.mpc2.controller.MPC.optimize" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-scripts.controllers.mpc2.controller_r">
+<span id="scripts-controllers-mpc2-controller-r-module"></span><h2>scripts.controllers.mpc2.controller_r module<a class="headerlink" href="#module-scripts.controllers.mpc2.controller_r" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="scripts.controllers.mpc2.controller_r.Controller">
+<em class="property">class </em><code class="descclassname">scripts.controllers.mpc2.controller_r.</code><code class="descname">Controller</code><span class="sig-paren">(</span><em>ros_interface</em>, <em>ref_traj</em>, <em>robot</em>, <em>plotting</em>, <em>dt=0.2</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/scripts/controllers/mpc2/controller_r.html#Controller"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#scripts.controllers.mpc2.controller_r.Controller" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="method">
+<dt id="scripts.controllers.mpc2.controller_r.Controller.control">
+<code class="descname">control</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/scripts/controllers/mpc2/controller_r.html#Controller.control"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#scripts.controllers.mpc2.controller_r.Controller.control" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="scripts.controllers.mpc2.controller_r.Controller.update">
+<code class="descname">update</code><span class="sig-paren">(</span><em>cmd_v</em>, <em>cmd_w</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/scripts/controllers/mpc2/controller_r.html#Controller.update"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#scripts.controllers.mpc2.controller_r.Controller.update" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="scripts.controllers.mpc2.controller_r.Controller.find_nearest_ind">
+<code class="descname">find_nearest_ind</code><span class="sig-paren">(</span><em>pose</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/scripts/controllers/mpc2/controller_r.html#Controller.find_nearest_ind"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#scripts.controllers.mpc2.controller_r.Controller.find_nearest_ind" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="scripts.controllers.mpc2.controller_r.PID">
+<em class="property">class </em><code class="descclassname">scripts.controllers.mpc2.controller_r.</code><code class="descname">PID</code><span class="sig-paren">(</span><em>pid_params</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/scripts/controllers/mpc2/controller_r.html#PID"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#scripts.controllers.mpc2.controller_r.PID" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="method">
+<dt id="scripts.controllers.mpc2.controller_r.PID.get_control_inputs">
+<code class="descname">get_control_inputs</code><span class="sig-paren">(</span><em>current_pose</em>, <em>goal_x</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/scripts/controllers/mpc2/controller_r.html#PID.get_control_inputs"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#scripts.controllers.mpc2.controller_r.PID.get_control_inputs" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="scripts.controllers.mpc2.controller_r.MPC">
+<em class="property">class </em><code class="descclassname">scripts.controllers.mpc2.controller_r.</code><code class="descname">MPC</code><span class="sig-paren">(</span><em>dt</em>, <em>horizon</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/scripts/controllers/mpc2/controller_r.html#MPC"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#scripts.controllers.mpc2.controller_r.MPC" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="method">
+<dt id="scripts.controllers.mpc2.controller_r.MPC.cost">
+<code class="descname">cost</code><span class="sig-paren">(</span><em>u_k</em>, <em>robot</em>, <em>path</em>, <em>vels</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/scripts/controllers/mpc2/controller_r.html#MPC.cost"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#scripts.controllers.mpc2.controller_r.MPC.cost" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="scripts.controllers.mpc2.controller_r.MPC.optimize">
+<code class="descname">optimize</code><span class="sig-paren">(</span><em>robot</em>, <em>points</em>, <em>vels</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/scripts/controllers/mpc2/controller_r.html#MPC.optimize"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#scripts.controllers.mpc2.controller_r.MPC.optimize" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-scripts.controllers.mpc2">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-scripts.controllers.mpc2" title="Permalink to this headline">¶</a></h2>
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="scripts.controllers.mpc.html" class="btn btn-neutral float-left" title="scripts.controllers.mpc package" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="scripts.controllers.pure_pursuit.html" class="btn btn-neutral float-right" title="scripts.controllers.pure_pursuit package" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023, mh.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

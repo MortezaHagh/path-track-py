@@ -1,0 +1,8 @@
+{
+  "dist_error": 0.944, 
+  "len": 0.0, 
+  "t": 34.91, 
+  "path": "path2", 
+  "method": "LQR", 
+  "trav_w": 142.55
+}
