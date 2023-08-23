@@ -1,8 +1,8 @@
 {
-  "dist_error": 0.082, 
+  "dist_error": 0.078, 
   "len": 0.0, 
-  "t": 212.31, 
+  "t": 85.86, 
   "path": "path_rviz_4", 
   "method": "MPC2", 
-  "trav_w": 13.09
+  "trav_w": 20.65
 }

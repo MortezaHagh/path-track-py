@@ -2,7 +2,7 @@
 <package format="2">
   <name>path_tracking_py</name>
   <version>0.0.0</version>
-  <description>The path_tracking package</description>
+  <description>The path_tracking_py package</description>
 
   <!-- One maintainer tag required, multiple allowed, one person per tag -->
   <!-- Example:  -->
@@ -19,7 +19,7 @@
   <!-- Url tags are optional, but multiple are allowed, one per tag -->
   <!-- Optional attribute type can be: website, bugtracker, or repository -->
   <!-- Example: -->
-  <!-- <url type="website">http://wiki.ros.org/path_tracking</url> -->
+  <!-- <url type="website">http://wiki.ros.org/path_tracking_py</url> -->
 
 
   <!-- Author tags are optional, multiple are allowed, one per tag -->

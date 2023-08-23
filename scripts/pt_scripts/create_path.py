@@ -224,7 +224,7 @@ class CreatePath:
 
 if __name__=="__main__":
     
-    cp = CreatePath("/home/piotr/catkin_ws/src/mh/path_tracking/data")
+    cp = CreatePath("/home/piotr/catkin_ws/src/mh/PathTrackPy/data")
     
     # random
     cp.generate_curved_waypoints()

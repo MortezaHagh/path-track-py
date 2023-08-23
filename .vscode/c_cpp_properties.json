@@ -40,7 +40,7 @@
         "/home/piotr/catkin_ws/src/navigation/move_slow_and_clear/include/**",
         "/home/piotr/catkin_ws/src/navigation/nav_core/include/**",
         "/home/piotr/catkin_ws/src/navigation/navfn/include/**",
-        "/home/piotr/catkin_ws/src/mh/path_tracking/include/**",
+        "/home/piotr/catkin_ws/src/mh/PathTrackPy/include/**",
         "/home/piotr/catkin_ws/src/line_follower/path_tracking_pid/include/**",
         "/home/piotr/catkin_ws/src/pcl_filtering/include/**",
         "/home/piotr/catkin_ws/src/rosbag_recorder/include/**",

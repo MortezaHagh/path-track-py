@@ -116,7 +116,7 @@ class CreatePathRviz:
         """
         name = 'path_rviz_4' + '.json'
         ros_pkg = rospkg.RosPack()
-        pkg_dir = ros_pkg.get_path("path_tracking")
+        pkg_dir = ros_pkg.get_path("path_tracking_py")
         paths_dir = os.path.join(pkg_dir, "data/Paths")
         file_dir = os.path.join(paths_dir, name)
         with open(file_dir, 'w') as f:

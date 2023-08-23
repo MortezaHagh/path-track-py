@@ -75,17 +75,17 @@
 <span class="kn">from</span> <span class="nn">pt_scripts.plotting</span> <span class="kn">import</span> <span class="n">Plotting</span>
 <span class="kn">from</span> <span class="nn">pt_scripts.create_path</span> <span class="kn">import</span> <span class="n">CreatePath</span>
 
-<span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;/home/piotr/catkin_ws/src/mh/path_tracking&#39;</span><span class="p">)</span>
+<span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;/home/piotr/catkin_ws/src/mh/PathTrackPy&#39;</span><span class="p">)</span>
 
 <span class="n">METHOD</span> <span class="o">=</span> <span class="s1">&#39;MPC2&#39;</span>  <span class="c1"># LQR - MPC2 - MPC - PurePursuit</span>
 <span class="k">if</span> <span class="n">METHOD</span> <span class="o">==</span><span class="s1">&#39;MPC&#39;</span><span class="p">:</span>
-    <span class="n">r_path</span> <span class="o">=</span> <span class="s1">&#39;/home/piotr/catkin_ws/src/mh/path_tracking/scripts/controllers/mpc/&#39;</span>
+    <span class="n">r_path</span> <span class="o">=</span> <span class="s1">&#39;/home/piotr/catkin_ws/src/mh/PathTrackPy/scripts/controllers/mpc/&#39;</span>
 <span class="k">elif</span> <span class="n">METHOD</span> <span class="o">==</span> <span class="s1">&#39;MPC2&#39;</span><span class="p">:</span>
-    <span class="n">r_path</span> <span class="o">=</span> <span class="s1">&#39;/home/piotr/catkin_ws/src/mh/path_tracking/scripts/controllers/mpc2/&#39;</span>
+    <span class="n">r_path</span> <span class="o">=</span> <span class="s1">&#39;/home/piotr/catkin_ws/src/mh/PathTrackPy/scripts/controllers/mpc2/&#39;</span>
 <span class="k">elif</span> <span class="n">METHOD</span> <span class="o">==</span> <span class="s1">&#39;PurePursuit&#39;</span><span class="p">:</span>
-    <span class="n">r_path</span> <span class="o">=</span> <span class="s1">&#39;/home/piotr/catkin_ws/src/mh/path_tracking/scripts/controllers/pure_pursuit/&#39;</span>
+    <span class="n">r_path</span> <span class="o">=</span> <span class="s1">&#39;/home/piotr/catkin_ws/src/mh/PathTrackPy/scripts/controllers/pure_pursuit/&#39;</span>
 <span class="k">elif</span> <span class="n">METHOD</span> <span class="o">==</span> <span class="s1">&#39;LQR&#39;</span><span class="p">:</span>
-    <span class="n">r_path</span> <span class="o">=</span> <span class="s1">&#39;/home/piotr/catkin_ws/src/mh/path_tracking/scripts/controllers/lqr/&#39;</span>
+    <span class="n">r_path</span> <span class="o">=</span> <span class="s1">&#39;/home/piotr/catkin_ws/src/mh/PathTrackPy/scripts/controllers/lqr/&#39;</span>
 
 <span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">r_path</span><span class="p">)</span>
 <span class="kn">from</span> <span class="nn">controller</span> <span class="kn">import</span> <span class="n">Controller</span>

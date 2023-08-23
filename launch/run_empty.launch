@@ -35,7 +35,7 @@
 
   <!-- Load RVIZ -->
   <group if="$(arg rviz)">
-    <node pkg="rviz" type="rviz" name="rviz" required="true" args="-d /home/piotr/Documents/RViz/path_tracking.rviz" />
+    <node pkg="rviz" type="rviz" name="rviz" required="true" args="-d /home/piotr/Documents/RViz/path_tracking_py.rviz" />
   </group>
 
 </launch>

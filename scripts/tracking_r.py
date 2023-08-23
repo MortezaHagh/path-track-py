@@ -10,10 +10,10 @@ from pt_scripts.plotting import Plotting
 from pt_scripts.create_path import CreatePath
 from pt_scripts.ros_interface import ROSInterface
 
-sys.path.insert(1, '/home/piotr/catkin_ws/src/mh/path_tracking')
+sys.path.insert(1, '/home/piotr/catkin_ws/src/mh/PathTrackPy')
 
 METHOD = 'MPC2'  # LQR - [MPC2 mpc2] - MPC - [PurePursuit pure_pursuit]
-r_path = '/home/piotr/catkin_ws/src/mh/path_tracking/scripts/controllers/mpc2/'
+r_path = '/home/piotr/catkin_ws/src/mh/PathTrackPy/scripts/controllers/mpc2/'
 
 sys.path.insert(0, r_path)
 
@@ -53,7 +53,7 @@ class Tracking:
 
         # base directory
         ros_pkg = rospkg.RosPack()
-        pkg_dir = ros_pkg.get_path('path_tracking')
+        pkg_dir = ros_pkg.get_path('path_tracking_py')
         data_dir = os.path.join(pkg_dir, 'data')
 
         # create reference Path/Trajectory/Waypoints

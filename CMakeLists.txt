@@ -57,7 +57,7 @@ find_package(jsoncpp REQUIRED)
 
 catkin_package(
 #  INCLUDE_DIRS include
-#  LIBRARIES path_tracking
+#  LIBRARIES path_tracking_py
 #  CATKIN_DEPENDS geometry_msgs nav_msgs roscpp rospy actionlib
 #  DEPENDS system_lib
 )

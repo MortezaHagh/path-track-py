@@ -6,17 +6,17 @@ import pt_scripts.utils as utils
 from pt_scripts.plotting import Plotting
 from pt_scripts.create_path import CreatePath
 
-sys.path.insert(1, '/home/piotr/catkin_ws/src/mh/path_tracking')
+sys.path.insert(1, '/home/piotr/catkin_ws/src/mh/PathTrackPy')
 
 METHOD = 'MPC2'  # LQR - MPC2 - MPC - PurePursuit
 if METHOD =='MPC':
-    r_path = '/home/piotr/catkin_ws/src/mh/path_tracking/scripts/controllers/mpc/'
+    r_path = '/home/piotr/catkin_ws/src/mh/PathTrackPy/scripts/controllers/mpc/'
 elif METHOD == 'MPC2':
-    r_path = '/home/piotr/catkin_ws/src/mh/path_tracking/scripts/controllers/mpc2/'
+    r_path = '/home/piotr/catkin_ws/src/mh/PathTrackPy/scripts/controllers/mpc2/'
 elif METHOD == 'PurePursuit':
-    r_path = '/home/piotr/catkin_ws/src/mh/path_tracking/scripts/controllers/pure_pursuit/'
+    r_path = '/home/piotr/catkin_ws/src/mh/PathTrackPy/scripts/controllers/pure_pursuit/'
 elif METHOD == 'LQR':
-    r_path = '/home/piotr/catkin_ws/src/mh/path_tracking/scripts/controllers/lqr/'
+    r_path = '/home/piotr/catkin_ws/src/mh/PathTrackPy/scripts/controllers/lqr/'
 
 sys.path.insert(0, r_path)
 from controller import Controller
@@ -50,7 +50,7 @@ class Tracking:
         
         # base directory
         ros_pkg = rospkg.RosPack()
-        pkg_dir = ros_pkg.get_path('path_tracking')
+        pkg_dir = ros_pkg.get_path('path_tracking_py')
         data_dir = os.path.join(pkg_dir, 'data')
 
         # create reference Path/Trajectory/Waypoints
