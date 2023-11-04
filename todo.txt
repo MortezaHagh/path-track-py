@@ -1,7 +1,0 @@
-
-----------------------------------------------------------------
-# ogm.get_cost_from_world_x_y(0.0, 0.0)
-# ogm.get_cost_from_costmap_x_y(0, 0)
-# ogm.get_world_x_y(0, 0)
-# ogm.get_costmap_x_y(0.0, 0.0)
-# ogm.get_closest_cell_over_cost(x=10, y=200, cost_threshold=254, max_radius=8)
