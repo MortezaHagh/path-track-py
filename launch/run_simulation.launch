@@ -1,0 +1,38 @@
+<launch>
+    <arg name="model" default="$(env TURTLEBOT3_MODEL)" doc="model type [burger, waffle, waffle_pi]" />
+    <arg name="x_pos" default="12.0" />
+    <arg name="y_pos" default="-3.0" />
+    <arg name="z_pos" default="0.0" />
+    <arg name="rviz" default="true" />
+
+    <include file="$(find gazebo_ros)/launch/empty_world.launch">
+        <arg name="world_name" value="$(find turtlebot3_gazebo)/worlds/empty.world" />
+        <arg name="paused" value="false" />
+        <arg name="use_sim_time" value="true" />
+        <arg name="gui" value="true" />
+    </include>
+
+    <param name="robot_description"
+        command="$(find xacro)/xacro --inorder $(find turtlebot3_description)/urdf/turtlebot3_$(arg model).urdf.xacro" />
+
+    <node pkg="gazebo_ros" type="spawn_model" name="spawn_urdf"
+        args="-urdf -model turtlebot3_$(arg model) -x $(arg x_pos) -y $(arg y_pos) -z $(arg z_pos) -param robot_description" />
+
+    <!-- <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher"
+    /> Run's robot TF and model from robot_description parameter -->
+    <!-- <node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher"
+    /> -->
+
+    <node pkg="tf" type="static_transform_publisher" name="fake_map_odom"
+        args="0 0 0 0 0 0 map odom 100" />
+    <node pkg="tf" type="static_transform_publisher" name="fake_bf"
+        args="0 0 0 0 0 0 base_footprint base_link 100" />
+
+    <!-- Load RVIZ -->
+    <group if="$(arg rviz)">
+        <node pkg="rviz" type="rviz" name="rviz" required="true"
+            args="-d $(find path_tracking_py)/config/path_tracking.rviz" />
+    </group>
+
+</launch>
+  

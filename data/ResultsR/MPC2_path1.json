@@ -1,8 +1,8 @@
 {
-  "dist_error": 0.502, 
+  "dist_error": 0.468, 
   "len": 0.0, 
-  "t": 116.31, 
+  "t": 114.21, 
   "path": "path1", 
   "method": "MPC2", 
-  "trav_w": 14.75
+  "trav_w": 12.72
 }

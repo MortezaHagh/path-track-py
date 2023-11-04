@@ -72,7 +72,8 @@ class Controller:
 
         dist = 0.0
         obs_flag = False
-        mb_state = self.send_goal(target_index)
+        if self.rosi.has_cost_map:
+            mb_state = self.send_goal(target_index)
 
         # main loop --------------------------------------------------------------
         while (not rospy.is_shutdown()) and target_index<self.ref_traj.count-1:

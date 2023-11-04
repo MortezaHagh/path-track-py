@@ -10,13 +10,13 @@ class CreatePath:
     """Create reference path and trajectory.
     """
 
-    def __init__(self, data_dir = ''):
+    def __init__(self, data_dir=''):
         """_summary_
 
         Args:
             data_dir (str, optional): _description_. Defaults to ''.
         """
-        
+
         self.min_dist = 0.2
         self.data_dir = os.path.join(data_dir, 'Paths')
 
@@ -24,7 +24,7 @@ class CreatePath:
         """
         This function generates a circular path with a specified radius and number of points.
         """
-        self.name = "path1"
+        self.name = "path-f1"
         n = 80
         self.r = 10
         self.x_c = 0
@@ -34,12 +34,12 @@ class CreatePath:
         self.y = [self.y_c+self.r*np.sin(t) for t in theta]
         self.yaw = [np.pi/2+t for t in theta]
         self.post_proc()
-        
+
     def path_2(self):
         """
         This function generates a path consisting of two straight lines connected at a right angle.
         """
-        self.name = "path2"
+        self.name = "path-f2"
         n = 20
         dl = 0.3
         x_init = 12
@@ -66,7 +66,7 @@ class CreatePath:
             max_y (int, optional): max y value. Defaults to 20.
             smoothness (int, optional): smoothness. Defaults to 3.
         """
-        self.name = 'path7'
+        self.name = 'path-c7'
         x_init = 12
         y_init = 0
 
@@ -109,10 +109,10 @@ class CreatePath:
         ind = str(ind)
         self.name = "pathj"+ind
         file_dir = os.path.join(self.data_dir, 'path' + ind + '.json')
-        
+
         if name is not None:
             file_dir = os.path.join(self.data_dir, name + '.json')
-            self.name = name
+            self.name = name+"-j"
 
         with open(file_dir, 'r') as f:
             items = json.load(f)
@@ -133,14 +133,14 @@ class CreatePath:
         # filter points
         i = 0
         selected_inds = []
-        while i<count-2:
+        while i < count-2:
             selected_inds.append(i)
             xi = xx[i]
             yi = yy[i]
             j = i+1
             dist = np.sqrt((xi - xx[j])**2 + (yi - yy[j])**2)
-            while dist<self.min_dist and j<count-1:
-                j+=1
+            while dist < self.min_dist and j < count-1:
+                j += 1
                 dist = np.sqrt((xi - xx[j])**2 + (yi - yy[j])**2)
             i = j
 
@@ -184,10 +184,10 @@ class CreatePath:
                 'theta': round(self.yaw[i], 2)
             }
             items.append(item)
-        file_dir = os.path.join(self.data_dir, name + '.json') 
+        file_dir = os.path.join(self.data_dir, name + '.json')
         with open(file_dir, 'w') as f:
             json.dump(items, f)
-  
+
     def speed_profile(self, robot):
         """calculate linear speed profile
 
@@ -218,14 +218,14 @@ class CreatePath:
             list: [x, y, yaw]
         """
         return [self.x[ind], self.y[ind], self.yaw[ind]]
-    
-    
+
+
 # ------------------------------------------------------------------
 
-if __name__=="__main__":
-    
+if __name__ == "__main__":
+
     cp = CreatePath("/home/piotr/catkin_ws/src/mh/PathTrackPy/data")
-    
+
     # random
     cp.generate_curved_waypoints()
     cp.plot()

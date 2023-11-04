@@ -22,7 +22,6 @@ sys.path.insert(0, r_path)
 from controller import Controller
 
 
-
 class Tracking:
     """Tracking Class
     """
@@ -38,8 +37,6 @@ class Tracking:
         # final plot and post processing
         self.final()
     
-    # ----------------------- initialize -----------------------------------
-
     def initialize(self):
         """
             Create reference path or trajectory.
@@ -47,6 +44,10 @@ class Tracking:
             Create Initial Plot.
             Create Controller (tracker).
         """
+
+        # settings
+        self.dt = 0.2
+        self.di_plot = True
         
         # base directory
         ros_pkg = rospkg.RosPack()
@@ -76,10 +77,7 @@ class Tracking:
         self.my_plot = Plotting(ref_traj, robot_.pose, goal)
 
         # controller
-        self.dt = 0.2
         self.controller = Controller(ref_traj, robot_, self.my_plot, self.dt)
-
-    # ----------------------- run -----------------------------------
 
     def run(self):
         """Start tracking
@@ -87,8 +85,6 @@ class Tracking:
         print("tracking started!")
         self.controller.control()
         print("tracking finished!")
-
-    # ----------------------- final -----------------------------------
 
     def final(self):
         """
@@ -102,6 +98,7 @@ class Tracking:
         # plot final
         print("final plotting ...")
         self.my_plot.plot_final(self.save_pic_path, self.controller.rec_traj_x, self.controller.rec_traj_y)
+        self.my_plot.plot_anim(self.save_pic_path, self.controller.rec_traj_x, self.controller.rec_traj_y, self.controller.rec_traj_yaw)
 
     def results(self):
         """processing and saving path tracking results.
@@ -125,8 +122,6 @@ class Tracking:
             json.dump(data, outfile, indent=2)
             outfile.write("\n")
                 
-
-# ------------------------------------------------------------------
 
 if __name__=="__main__":
     tr = Tracking()

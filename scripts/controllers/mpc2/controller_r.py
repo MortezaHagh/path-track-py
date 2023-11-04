@@ -110,7 +110,9 @@ class Controller:
 		
 		min_dist = 0.0
 		obst_flag = False
-		mb_state = self.send_goal(current_idx)
+
+		if self.rosi.has_cost_map:
+			mb_state = self.send_goal(current_idx)
 		
 		# main control loop --------------------------------------------------------------
 		while (not rospy.is_shutdown()) and (current_idx < self.ref_traj.count):

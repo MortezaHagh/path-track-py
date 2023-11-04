@@ -1,23 +1,26 @@
 <launch>
-  
-  <!-- workshop_simple  wf2_world slide_1-->
+
+  <!-- -->
   <arg name="world_name" default="workshop_simple.world" />
   <arg name="gui" default="true" />
-  <arg name="x_pos" default="8" /> 
-  <arg name="y_pos" default="0" />
+  <arg name="x_pos" default="12" />
+  <arg name="y_pos" default="-3" />
   <arg name="z_pos" default="0" />
-  <arg name="roll" default="0"/>
-  <arg name="pitch" default="0"/>
-  <arg name="yaw" default="0"/>
+  <arg name="roll" default="0" />
+  <arg name="pitch" default="0" />
+  <arg name="yaw" default="0" />
   <arg name="rviz" default="true" />
 
   <!-- tf -->
   <!-- <include file="$(dirname)/tf.launch"> </include> -->
-  <param name="robot_description" command="$(find xacro)/xacro '$(find pf_robot_description)/urdf/uvc_robot_e.xacro'" />  
-  <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" /> <!-- Run's robot TF and model from robot_description parameter -->
+  <param name="robot_description"
+    command="$(find xacro)/xacro '$(find pf_robot_description)/urdf/uvc_robot_e.xacro'" />
+  <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" /> <!--
+  Run's robot TF and model from robot_description parameter -->
   <node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher" />
 
-  <node pkg="tf" type="static_transform_publisher" name="fake_map_odom" args="0 0 0 0 0 0 map odom 100" />
+  <node pkg="tf" type="static_transform_publisher" name="fake_map_odom"
+    args="0 0 0 0 0 0 map odom 100" />
 
 
   <!-- Gazebo  gazebo_node -->
@@ -25,17 +28,18 @@
     <!-- <arg name="world_name" value="$(arg world_name)" /> -->
     <param name="/use_sim_time" value="true" />
     <arg name="gui" value="$(arg gui)" />
-    <arg name="x_pos" value="$(arg x_pos)"/>
-    <arg name="y_pos" value="$(arg y_pos)"/>
-    <arg name="z_pos" value="$(arg z_pos)"/>
-    <arg name="roll" value="$(arg roll)"/>
-    <arg name="pitch" value="$(arg pitch)"/>
-    <arg name="yaw" value="$(arg yaw)"/>
+    <arg name="x_pos" value="$(arg x_pos)" />
+    <arg name="y_pos" value="$(arg y_pos)" />
+    <arg name="z_pos" value="$(arg z_pos)" />
+    <arg name="roll" value="$(arg roll)" />
+    <arg name="pitch" value="$(arg pitch)" />
+    <arg name="yaw" value="$(arg yaw)" />
   </include>
 
   <!-- Load RVIZ -->
   <group if="$(arg rviz)">
-    <node pkg="rviz" type="rviz" name="rviz" required="true" args="-d /home/piotr/Documents/RViz/path_tracking_py.rviz" />
+    <node pkg="rviz" type="rviz" name="rviz" required="true"
+      args="-d $(find path_tracking_py)/config/path_tracking.rviz" />
   </group>
 
 </launch>

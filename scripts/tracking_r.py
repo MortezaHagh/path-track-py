@@ -24,8 +24,8 @@ class Tracking:
     def __init__(self):
 
         # setting
-        self.by_cost_map = True   # False - True                    # ******************************* set
-        self.pose_method = "Tf" # Tf  Odom                        # ******************************* set
+        self.by_cost_map = False   # False - True                    # ******************************* set
+        self.pose_method = "Odom" # Tf  Odom                        # ******************************* set
         self.start_method = "normal" # from_global_plan - normal    # ******************************* set
 
         # initialize
@@ -69,7 +69,7 @@ class Tracking:
             print("got global plan")
             ref_traj.from_plan(self.ros_interface.global_plan)
         else:
-            ref_traj.from_json(name="path_rviz_4")  #from_json(name="path_rviz_4")          # path_1, path_2, from_json, generate_curved_waypoints  ************ set
+            ref_traj.from_json(name="path1")  #from_json(name="path_rviz_4")          # path_1, path_2, from_json, generate_curved_waypoints  ************ set
         self.ref_traj = ref_traj
         goal = [ref_traj.x[-1], ref_traj.y[-1]]  # last waypoint
 
