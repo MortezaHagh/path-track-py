@@ -11,7 +11,7 @@ However, basic 2D simulation in python is also possible.
     <td>2D Simulation</td>
 </tr>
   <tr>
-    <td><img src="./data/Videos/Sim-MPC-Pathj2.gif" alt="1" width="600" height="600"></td>
+    <td><img src="./data/Videos/Sim-MPC-Pathj2.gif" alt="1" width="400" height="400"></td>
     <td><img src="./data/Pics/MPC2_path-f1.gif" alt="1"></td>
   </tr>
 </table>
@@ -55,7 +55,7 @@ python3 scripts/tracking.py
 
 <table style="padding:10px">
   <tr>
-    <td><img src="./data/Videos/Sim-MPC-Pathj1.gif" alt="1" width="600" height="600"></td>
+    <td><img src="./data/Videos/Sim-MPC-Pathj1.gif" alt="1" width="400" height="400"></td>
   </tr>
 </table>
 
@@ -68,7 +68,3 @@ python3 scripts/tracking.py
     <td><img src="./data/Pics/MPC2_path3-j.png" alt="3"></td>
   </tr>
 </table>
-
-## c
-
-Contributions to this project are welcome.
