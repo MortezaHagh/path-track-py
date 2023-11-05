@@ -1,10 +1,8 @@
-scripts.pt\_scripts package
+Tracking Scripts
 ===========================
 
-Submodules
-----------
 
-scripts.pt\_scripts.create\_path module
+create path
 ---------------------------------------
 
 .. automodule:: scripts.pt_scripts.create_path
@@ -12,7 +10,7 @@ scripts.pt\_scripts.create\_path module
     :undoc-members:
     :show-inheritance:
 
-scripts.pt\_scripts.create\_path\_rviz module
+create path from rviz
 ---------------------------------------------
 
 .. automodule:: scripts.pt_scripts.create_path_rviz
@@ -20,7 +18,7 @@ scripts.pt\_scripts.create\_path\_rviz module
     :undoc-members:
     :show-inheritance:
 
-scripts.pt\_scripts.plotting module
+plotting
 -----------------------------------
 
 .. automodule:: scripts.pt_scripts.plotting
@@ -28,7 +26,7 @@ scripts.pt\_scripts.plotting module
     :undoc-members:
     :show-inheritance:
 
-scripts.pt\_scripts.ros\_interface module
+ros interface
 -----------------------------------------
 
 .. automodule:: scripts.pt_scripts.ros_interface
@@ -36,7 +34,7 @@ scripts.pt\_scripts.ros\_interface module
     :undoc-members:
     :show-inheritance:
 
-scripts.pt\_scripts.utils module
+utils
 --------------------------------
 
 .. automodule:: scripts.pt_scripts.utils
@@ -44,11 +42,3 @@ scripts.pt\_scripts.utils module
     :undoc-members:
     :show-inheritance:
 
-
-Module contents
----------------
-
-.. automodule:: scripts.pt_scripts
-    :members:
-    :undoc-members:
-    :show-inheritance:

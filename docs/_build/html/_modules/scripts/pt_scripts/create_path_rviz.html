@@ -39,7 +39,9 @@
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <p class="caption"><span class="caption-text">Contents:</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../../scripts.html">Path Tracking</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../scripts.tracking.html">Tracking</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../scripts.controllers.html">Controllers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../scripts.pt_scripts.html">Tracking Scripts</a></li>
 </ul>
 
         </div>
@@ -183,9 +185,9 @@
 <div class="viewcode-block" id="CreatePathRviz.save_path"><a class="viewcode-back" href="../../../scripts.pt_scripts.html#scripts.pt_scripts.create_path_rviz.CreatePathRviz.save_path">[docs]</a>    <span class="k">def</span> <span class="nf">save_path</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;save path as json file</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;path_rviz_3&#39;</span> <span class="o">+</span> <span class="s1">&#39;.json&#39;</span>
+        <span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;path_rviz_4&#39;</span> <span class="o">+</span> <span class="s1">&#39;.json&#39;</span>
         <span class="n">ros_pkg</span> <span class="o">=</span> <span class="n">rospkg</span><span class="o">.</span><span class="n">RosPack</span><span class="p">()</span>
-        <span class="n">pkg_dir</span> <span class="o">=</span> <span class="n">ros_pkg</span><span class="o">.</span><span class="n">get_path</span><span class="p">(</span><span class="s2">&quot;path_tracking&quot;</span><span class="p">)</span>
+        <span class="n">pkg_dir</span> <span class="o">=</span> <span class="n">ros_pkg</span><span class="o">.</span><span class="n">get_path</span><span class="p">(</span><span class="s2">&quot;path_tracking_py&quot;</span><span class="p">)</span>
         <span class="n">paths_dir</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">pkg_dir</span><span class="p">,</span> <span class="s2">&quot;data/Paths&quot;</span><span class="p">)</span>
         <span class="n">file_dir</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">paths_dir</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span>
         <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">file_dir</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>

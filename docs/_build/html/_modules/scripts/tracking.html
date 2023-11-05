@@ -39,7 +39,9 @@
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <p class="caption"><span class="caption-text">Contents:</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../scripts.html">Path Tracking</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../scripts.tracking.html">Tracking</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../scripts.controllers.html">Controllers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../scripts.pt_scripts.html">Tracking Scripts</a></li>
 </ul>
 
         </div>
@@ -91,8 +93,7 @@
 <span class="kn">from</span> <span class="nn">controller</span> <span class="kn">import</span> <span class="n">Controller</span>
 
 
-
-<div class="viewcode-block" id="Tracking"><a class="viewcode-back" href="../../scripts.html#scripts.tracking.Tracking">[docs]</a><span class="k">class</span> <span class="nc">Tracking</span><span class="p">:</span>
+<div class="viewcode-block" id="Tracking"><a class="viewcode-back" href="../../scripts.tracking.html#scripts.tracking.Tracking">[docs]</a><span class="k">class</span> <span class="nc">Tracking</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;Tracking Class</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
@@ -107,19 +108,21 @@
         <span class="c1"># final plot and post processing</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">final</span><span class="p">()</span>
     
-    <span class="c1"># ----------------------- initialize -----------------------------------</span>
-
-<div class="viewcode-block" id="Tracking.initialize"><a class="viewcode-back" href="../../scripts.html#scripts.tracking.Tracking.initialize">[docs]</a>    <span class="k">def</span> <span class="nf">initialize</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="Tracking.initialize"><a class="viewcode-back" href="../../scripts.tracking.html#scripts.tracking.Tracking.initialize">[docs]</a>    <span class="k">def</span> <span class="nf">initialize</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">            Create reference path or trajectory.</span>
 <span class="sd">            Create Robot object.</span>
 <span class="sd">            Create Initial Plot.</span>
 <span class="sd">            Create Controller (tracker).</span>
 <span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="c1"># settings</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">dt</span> <span class="o">=</span> <span class="mf">0.2</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">di_plot</span> <span class="o">=</span> <span class="kc">True</span>
         
         <span class="c1"># base directory</span>
         <span class="n">ros_pkg</span> <span class="o">=</span> <span class="n">rospkg</span><span class="o">.</span><span class="n">RosPack</span><span class="p">()</span>
-        <span class="n">pkg_dir</span> <span class="o">=</span> <span class="n">ros_pkg</span><span class="o">.</span><span class="n">get_path</span><span class="p">(</span><span class="s1">&#39;path_tracking&#39;</span><span class="p">)</span>
+        <span class="n">pkg_dir</span> <span class="o">=</span> <span class="n">ros_pkg</span><span class="o">.</span><span class="n">get_path</span><span class="p">(</span><span class="s1">&#39;path_tracking_py&#39;</span><span class="p">)</span>
         <span class="n">data_dir</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">pkg_dir</span><span class="p">,</span> <span class="s1">&#39;data&#39;</span><span class="p">)</span>
 
         <span class="c1"># create reference Path/Trajectory/Waypoints</span>
@@ -145,21 +148,16 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">my_plot</span> <span class="o">=</span> <span class="n">Plotting</span><span class="p">(</span><span class="n">ref_traj</span><span class="p">,</span> <span class="n">robot_</span><span class="o">.</span><span class="n">pose</span><span class="p">,</span> <span class="n">goal</span><span class="p">)</span>
 
         <span class="c1"># controller</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">dt</span> <span class="o">=</span> <span class="mf">0.2</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">controller</span> <span class="o">=</span> <span class="n">Controller</span><span class="p">(</span><span class="n">ref_traj</span><span class="p">,</span> <span class="n">robot_</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">my_plot</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">dt</span><span class="p">)</span></div>
 
-    <span class="c1"># ----------------------- run -----------------------------------</span>
-
-<div class="viewcode-block" id="Tracking.run"><a class="viewcode-back" href="../../scripts.html#scripts.tracking.Tracking.run">[docs]</a>    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="Tracking.run"><a class="viewcode-back" href="../../scripts.tracking.html#scripts.tracking.Tracking.run">[docs]</a>    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Start tracking</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;tracking started!&quot;</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">controller</span><span class="o">.</span><span class="n">control</span><span class="p">()</span>
         <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;tracking finished!&quot;</span><span class="p">)</span></div>
 
-    <span class="c1"># ----------------------- final -----------------------------------</span>
-
-<div class="viewcode-block" id="Tracking.final"><a class="viewcode-back" href="../../scripts.html#scripts.tracking.Tracking.final">[docs]</a>    <span class="k">def</span> <span class="nf">final</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="Tracking.final"><a class="viewcode-back" href="../../scripts.tracking.html#scripts.tracking.Tracking.final">[docs]</a>    <span class="k">def</span> <span class="nf">final</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        This function calculates and reports errors, and then plots the final trajectory.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -170,9 +168,10 @@
 
         <span class="c1"># plot final</span>
         <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;final plotting ...&quot;</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">my_plot</span><span class="o">.</span><span class="n">plot_final</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">save_pic_path</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">controller</span><span class="o">.</span><span class="n">rec_traj_x</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">controller</span><span class="o">.</span><span class="n">rec_traj_y</span><span class="p">)</span></div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">my_plot</span><span class="o">.</span><span class="n">plot_final</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">save_pic_path</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">controller</span><span class="o">.</span><span class="n">rec_traj_x</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">controller</span><span class="o">.</span><span class="n">rec_traj_y</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">my_plot</span><span class="o">.</span><span class="n">plot_anim</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">save_pic_path</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">controller</span><span class="o">.</span><span class="n">rec_traj_x</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">controller</span><span class="o">.</span><span class="n">rec_traj_y</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">controller</span><span class="o">.</span><span class="n">rec_traj_yaw</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="Tracking.results"><a class="viewcode-back" href="../../scripts.html#scripts.tracking.Tracking.results">[docs]</a>    <span class="k">def</span> <span class="nf">results</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="Tracking.results"><a class="viewcode-back" href="../../scripts.tracking.html#scripts.tracking.Tracking.results">[docs]</a>    <span class="k">def</span> <span class="nf">results</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;processing and saving path tracking results.</span>
 <span class="sd">            Calculate error.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -194,8 +193,6 @@
             <span class="n">json</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">outfile</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
             <span class="n">outfile</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span></div></div>
                 
-
-<span class="c1"># ------------------------------------------------------------------</span>
 
 <span class="k">if</span> <span class="vm">__name__</span><span class="o">==</span><span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
     <span class="n">tr</span> <span class="o">=</span> <span class="n">Tracking</span><span class="p">()</span>

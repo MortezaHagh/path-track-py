@@ -39,7 +39,9 @@
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <p class="caption"><span class="caption-text">Contents:</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../../../scripts.html">Path Tracking</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../scripts.tracking.html">Tracking</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../scripts.controllers.html">Controllers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../scripts.pt_scripts.html">Tracking Scripts</a></li>
 </ul>
 
         </div>
@@ -134,8 +136,8 @@
 			<span class="n">current_idx</span><span class="p">,</span> <span class="n">dists</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">find_nearest_ind</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">robot</span><span class="o">.</span><span class="n">pose</span><span class="p">)</span>
 
 		<span class="k">while</span> <span class="p">(</span><span class="n">current_idx</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">ref_traj</span><span class="o">.</span><span class="n">count</span><span class="p">):</span>
-			<span class="k">if</span> <span class="n">goal_dist</span><span class="o">&lt;</span><span class="bp">self</span><span class="o">.</span><span class="n">goal_dist_thresh</span><span class="p">:</span>
-				<span class="k">break</span>
+			<span class="k">if</span> <span class="n">goal_dist</span><span class="o">&lt;</span><span class="bp">self</span><span class="o">.</span><span class="n">goal_dist_thresh</span> <span class="ow">and</span> <span class="n">current_idx</span><span class="o">&gt;</span><span class="bp">self</span><span class="o">.</span><span class="n">ref_traj</span><span class="o">.</span><span class="n">count</span><span class="o">*</span><span class="mf">0.8</span><span class="p">:</span>
+				<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Goal dist&quot;</span><span class="p">)</span>
 
 			<span class="c1"># update index and horizon</span>
 			<span class="n">_</span><span class="p">,</span> <span class="n">dists</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">find_nearest_ind</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">robot</span><span class="o">.</span><span class="n">pose</span><span class="p">)</span>

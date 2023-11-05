@@ -1,10 +1,8 @@
-scripts.controllers.pure\_pursuit package
+Pure Pursuit
 =========================================
 
-Submodules
-----------
 
-scripts.controllers.pure\_pursuit.controller module
+pure\_pursuit controller
 ---------------------------------------------------
 
 .. automodule:: scripts.controllers.pure_pursuit.controller
@@ -12,7 +10,7 @@ scripts.controllers.pure\_pursuit.controller module
     :undoc-members:
     :show-inheritance:
 
-scripts.controllers.pure\_pursuit.controller\_r module
+pure\_pursuit controller\_r
 ------------------------------------------------------
 
 .. automodule:: scripts.controllers.pure_pursuit.controller_r
@@ -20,12 +18,3 @@ scripts.controllers.pure\_pursuit.controller\_r module
     :undoc-members:
     :show-inheritance:
 
-
-
-Module contents
----------------
-
-.. automodule:: scripts.controllers.pure_pursuit
-    :members:
-    :undoc-members:
-    :show-inheritance:

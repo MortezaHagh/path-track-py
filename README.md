@@ -5,7 +5,18 @@ This repository contains a framework for implementing path tracking algorithms a
 This framework is implemented in ROS (real-world applications or GAZEBO simulatin).
 However, basic 2D simulation in python is also possible.
 
-## Three path teacking methods
+<table style="padding:10px">
+  <tr>
+    <td>RVIZ (Gazebo Simuation)</td>
+    <td>2D Simulation</td>
+</tr>
+  <tr>
+    <td><img src="./data/Videos/Sim-MPC-Pathj2.gif" alt="1" width="600" height="600"></td>
+    <td><img src="./data/Pics/MPC2_path-f1.gif" alt="1"></td>
+  </tr>
+</table>
+
+## Three implemented methods
 
 1. Pure Pursuit
 2. Model Predictive Control: MPC
@@ -44,7 +55,7 @@ python3 scripts/tracking.py
 
 <table style="padding:10px">
   <tr>
-    <td><img src="./data/Videos/Sim-MPC-Pathj1.gif" alt="1"></td>
+    <td><img src="./data/Videos/Sim-MPC-Pathj1.gif" alt="1" width="600" height="600"></td>
   </tr>
 </table>
 

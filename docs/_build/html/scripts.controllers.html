@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>scripts.controllers package &mdash; Path Tracking  documentation</title><link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <title>Controllers &mdash; Path Tracking  documentation</title><link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
   <!--[if lt IE 9]>
     <script src="_static/js/html5shiv.min.js"></script>
@@ -16,8 +16,8 @@
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="scripts.controllers.lqr package" href="scripts.controllers.lqr.html" />
-    <link rel="prev" title="Path Tracking" href="scripts.html" /> 
+    <link rel="next" title="LQR" href="scripts.controllers.lqr.html" />
+    <link rel="prev" title="Welcome to Path Tracking documentation!" href="index.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -41,20 +41,15 @@
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <p class="caption"><span class="caption-text">Contents:</span></p>
 <ul class="current">
-<li class="toctree-l1 current"><a class="reference internal" href="scripts.html">Path Tracking</a><ul class="current">
-<li class="toctree-l2 current"><a class="reference internal" href="scripts.html#controllers">Controllers</a><ul class="current">
-<li class="toctree-l3 current"><a class="current reference internal" href="#">scripts.controllers package</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#subpackages">Subpackages</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#module-scripts.controllers">Module contents</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Controllers</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="scripts.controllers.lqr.html">LQR</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scripts.controllers.mpc.html">MPC</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scripts.controllers.mpc2.html">MPC2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scripts.controllers.pure_pursuit.html">Pure Pursuit</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="scripts.pt_scripts.html">scripts.pt_scripts package</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="scripts.html#module-scripts.tracking">Tracking</a></li>
-<li class="toctree-l2"><a class="reference internal" href="scripts.html#module-scripts.tracking_r">Tracking Real-Time</a></li>
-</ul>
-</li>
+<li class="toctree-l1"><a class="reference internal" href="scripts.pt_scripts.html">Tracking Scripts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="scripts.tracking.html">Tracking</a></li>
 </ul>
 
         </div>
@@ -71,8 +66,7 @@
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
-          <li class="breadcrumb-item"><a href="scripts.html">Path Tracking</a></li>
-      <li class="breadcrumb-item active">scripts.controllers package</li>
+      <li class="breadcrumb-item active">Controllers</li>
       <li class="wy-breadcrumbs-aside">
             <a href="_sources/scripts.controllers.rst.txt" rel="nofollow"> View page source</a>
       </li>
@@ -82,45 +76,31 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <div class="section" id="scripts-controllers-package">
-<h1>scripts.controllers package<a class="headerlink" href="#scripts-controllers-package" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="subpackages">
-<h2>Subpackages<a class="headerlink" href="#subpackages" title="Permalink to this headline">¶</a></h2>
+  <div class="section" id="controllers">
+<h1>Controllers<a class="headerlink" href="#controllers" title="Permalink to this headline">¶</a></h1>
 <div class="toctree-wrapper compound">
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="scripts.controllers.lqr.html">scripts.controllers.lqr package</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="scripts.controllers.lqr.html#submodules">Submodules</a></li>
-<li class="toctree-l2"><a class="reference internal" href="scripts.controllers.lqr.html#module-scripts.controllers.lqr.controller">scripts.controllers.lqr.controller module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="scripts.controllers.lqr.html#module-scripts.controllers.lqr.controller_r">scripts.controllers.lqr.controller_r module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="scripts.controllers.lqr.html#module-scripts.controllers.lqr">Module contents</a></li>
+<li class="toctree-l1"><a class="reference internal" href="scripts.controllers.lqr.html">LQR</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="scripts.controllers.lqr.html#module-scripts.controllers.lqr.controller">lqr controller</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scripts.controllers.lqr.html#module-scripts.controllers.lqr.controller_r">lqr controller_r module</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="scripts.controllers.mpc.html">scripts.controllers.mpc package</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="scripts.controllers.mpc.html#submodules">Submodules</a></li>
-<li class="toctree-l2"><a class="reference internal" href="scripts.controllers.mpc.html#module-scripts.controllers.mpc.controller">scripts.controllers.mpc.controller module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="scripts.controllers.mpc.html#module-scripts.controllers.mpc.controller_r">scripts.controllers.mpc.controller_r module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="scripts.controllers.mpc.html#module-scripts.controllers.mpc">Module contents</a></li>
+<li class="toctree-l1"><a class="reference internal" href="scripts.controllers.mpc.html">MPC</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="scripts.controllers.mpc.html#module-scripts.controllers.mpc.controller">mpc controller</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scripts.controllers.mpc.html#module-scripts.controllers.mpc.controller_r">mpc controller_r</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="scripts.controllers.mpc2.html">scripts.controllers.mpc2 package</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="scripts.controllers.mpc2.html#submodules">Submodules</a></li>
-<li class="toctree-l2"><a class="reference internal" href="scripts.controllers.mpc2.html#module-scripts.controllers.mpc2.controller">scripts.controllers.mpc2.controller module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="scripts.controllers.mpc2.html#module-scripts.controllers.mpc2.controller_r">scripts.controllers.mpc2.controller_r module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="scripts.controllers.mpc2.html#module-scripts.controllers.mpc2">Module contents</a></li>
+<li class="toctree-l1"><a class="reference internal" href="scripts.controllers.mpc2.html">MPC2</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="scripts.controllers.mpc2.html#module-scripts.controllers.mpc2.controller">mpc2 controller</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scripts.controllers.mpc2.html#module-scripts.controllers.mpc2.controller_r">mpc2 controller_r</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="scripts.controllers.pure_pursuit.html">scripts.controllers.pure_pursuit package</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="scripts.controllers.pure_pursuit.html#submodules">Submodules</a></li>
-<li class="toctree-l2"><a class="reference internal" href="scripts.controllers.pure_pursuit.html#module-scripts.controllers.pure_pursuit.controller">scripts.controllers.pure_pursuit.controller module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="scripts.controllers.pure_pursuit.html#module-scripts.controllers.pure_pursuit.controller_r">scripts.controllers.pure_pursuit.controller_r module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="scripts.controllers.pure_pursuit.html#module-scripts.controllers.pure_pursuit">Module contents</a></li>
+<li class="toctree-l1"><a class="reference internal" href="scripts.controllers.pure_pursuit.html">Pure Pursuit</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="scripts.controllers.pure_pursuit.html#module-scripts.controllers.pure_pursuit.controller">pure_pursuit controller</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scripts.controllers.pure_pursuit.html#module-scripts.controllers.pure_pursuit.controller_r">pure_pursuit controller_r</a></li>
 </ul>
 </li>
 </ul>
-</div>
-</div>
-<div class="section" id="module-scripts.controllers">
-<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-scripts.controllers" title="Permalink to this headline">¶</a></h2>
 </div>
 </div>
 
@@ -128,8 +108,8 @@
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="scripts.html" class="btn btn-neutral float-left" title="Path Tracking" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="scripts.controllers.lqr.html" class="btn btn-neutral float-right" title="scripts.controllers.lqr package" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="index.html" class="btn btn-neutral float-left" title="Welcome to Path Tracking documentation!" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="scripts.controllers.lqr.html" class="btn btn-neutral float-right" title="LQR" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>

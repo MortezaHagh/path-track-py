@@ -1,8 +1,5 @@
-scripts.controllers package
+Controllers
 ===========================
-
-Subpackages
------------
 
 .. toctree::
 
@@ -11,10 +8,3 @@ Subpackages
     scripts.controllers.mpc2
     scripts.controllers.pure_pursuit
 
-Module contents
----------------
-
-.. automodule:: scripts.controllers
-    :members:
-    :undoc-members:
-    :show-inheritance:

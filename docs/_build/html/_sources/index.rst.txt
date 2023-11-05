@@ -10,7 +10,10 @@ Welcome to Path Tracking documentation!
    :maxdepth: 2
    :caption: Contents:
 
-   scripts
+   scripts.tracking
+   scripts.controllers
+   scripts.pt_scripts
+
 
 Indices and tables
 ==================

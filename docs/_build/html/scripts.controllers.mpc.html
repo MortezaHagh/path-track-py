@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>scripts.controllers.mpc package &mdash; Path Tracking  documentation</title><link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <title>MPC &mdash; Path Tracking  documentation</title><link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
   <!--[if lt IE 9]>
     <script src="_static/js/html5shiv.min.js"></script>
@@ -16,8 +16,8 @@
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="scripts.controllers.mpc2 package" href="scripts.controllers.mpc2.html" />
-    <link rel="prev" title="scripts.controllers.lqr package" href="scripts.controllers.lqr.html" /> 
+    <link rel="next" title="MPC2" href="scripts.controllers.mpc2.html" />
+    <link rel="prev" title="LQR" href="scripts.controllers.lqr.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -41,20 +41,19 @@
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <p class="caption"><span class="caption-text">Contents:</span></p>
 <ul class="current">
-<li class="toctree-l1 current"><a class="reference internal" href="scripts.html">Path Tracking</a><ul class="current">
-<li class="toctree-l2 current"><a class="reference internal" href="scripts.html#controllers">Controllers</a><ul class="current">
-<li class="toctree-l3 current"><a class="reference internal" href="scripts.controllers.html">scripts.controllers package</a><ul class="current">
-<li class="toctree-l4 current"><a class="reference internal" href="scripts.controllers.html#subpackages">Subpackages</a></li>
-<li class="toctree-l4"><a class="reference internal" href="scripts.controllers.html#module-scripts.controllers">Module contents</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="scripts.controllers.html">Controllers</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="scripts.controllers.lqr.html">LQR</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">MPC</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#module-scripts.controllers.mpc.controller">mpc controller</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-scripts.controllers.mpc.controller_r">mpc controller_r</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="scripts.pt_scripts.html">scripts.pt_scripts package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scripts.controllers.mpc2.html">MPC2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scripts.controllers.pure_pursuit.html">Pure Pursuit</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="scripts.html#module-scripts.tracking">Tracking</a></li>
-<li class="toctree-l2"><a class="reference internal" href="scripts.html#module-scripts.tracking_r">Tracking Real-Time</a></li>
-</ul>
-</li>
+<li class="toctree-l1"><a class="reference internal" href="scripts.pt_scripts.html">Tracking Scripts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="scripts.tracking.html">Tracking</a></li>
 </ul>
 
         </div>
@@ -71,9 +70,8 @@
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
-          <li class="breadcrumb-item"><a href="scripts.html">Path Tracking</a></li>
-          <li class="breadcrumb-item"><a href="scripts.controllers.html">scripts.controllers package</a></li>
-      <li class="breadcrumb-item active">scripts.controllers.mpc package</li>
+          <li class="breadcrumb-item"><a href="scripts.controllers.html">Controllers</a></li>
+      <li class="breadcrumb-item active">MPC</li>
       <li class="wy-breadcrumbs-aside">
             <a href="_sources/scripts.controllers.mpc.rst.txt" rel="nofollow"> View page source</a>
       </li>
@@ -83,13 +81,10 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <div class="section" id="scripts-controllers-mpc-package">
-<h1>scripts.controllers.mpc package<a class="headerlink" href="#scripts-controllers-mpc-package" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="submodules">
-<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
-</div>
+  <div class="section" id="mpc">
+<h1>MPC<a class="headerlink" href="#mpc" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="module-scripts.controllers.mpc.controller">
-<span id="scripts-controllers-mpc-controller-module"></span><h2>scripts.controllers.mpc.controller module<a class="headerlink" href="#module-scripts.controllers.mpc.controller" title="Permalink to this headline">¶</a></h2>
+<span id="mpc-controller"></span><h2>mpc controller<a class="headerlink" href="#module-scripts.controllers.mpc.controller" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
 <dt id="scripts.controllers.mpc.controller.Controller">
 <em class="property">class </em><code class="descclassname">scripts.controllers.mpc.controller.</code><code class="descname">Controller</code><span class="sig-paren">(</span><em>ref_traj</em>, <em>robot</em>, <em>plotting</em>, <em>dt=0.2</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/scripts/controllers/mpc/controller.html#Controller"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#scripts.controllers.mpc.controller.Controller" title="Permalink to this definition">¶</a></dt>
@@ -137,7 +132,7 @@
 
 </div>
 <div class="section" id="module-scripts.controllers.mpc.controller_r">
-<span id="scripts-controllers-mpc-controller-r-module"></span><h2>scripts.controllers.mpc.controller_r module<a class="headerlink" href="#module-scripts.controllers.mpc.controller_r" title="Permalink to this headline">¶</a></h2>
+<span id="mpc-controller-r"></span><h2>mpc controller_r<a class="headerlink" href="#module-scripts.controllers.mpc.controller_r" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
 <dt id="scripts.controllers.mpc.controller_r.Controller">
 <em class="property">class </em><code class="descclassname">scripts.controllers.mpc.controller_r.</code><code class="descname">Controller</code><span class="sig-paren">(</span><em>ros_interface</em>, <em>ref_traj</em>, <em>robot</em>, <em>plotting</em>, <em>dt=0.2</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/scripts/controllers/mpc/controller_r.html#Controller"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#scripts.controllers.mpc.controller_r.Controller" title="Permalink to this definition">¶</a></dt>
@@ -184,17 +179,14 @@
 </dd></dl>
 
 </div>
-<div class="section" id="module-scripts.controllers.mpc">
-<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-scripts.controllers.mpc" title="Permalink to this headline">¶</a></h2>
-</div>
 </div>
 
 
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="scripts.controllers.lqr.html" class="btn btn-neutral float-left" title="scripts.controllers.lqr package" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="scripts.controllers.mpc2.html" class="btn btn-neutral float-right" title="scripts.controllers.mpc2 package" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="scripts.controllers.lqr.html" class="btn btn-neutral float-left" title="LQR" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="scripts.controllers.mpc2.html" class="btn btn-neutral float-right" title="MPC2" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>

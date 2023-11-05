@@ -1,10 +1,8 @@
-scripts.controllers.mpc package
+MPC
 ===============================
 
-Submodules
-----------
 
-scripts.controllers.mpc.controller module
+mpc controller
 -----------------------------------------
 
 .. automodule:: scripts.controllers.mpc.controller
@@ -12,7 +10,7 @@ scripts.controllers.mpc.controller module
     :undoc-members:
     :show-inheritance:
 
-scripts.controllers.mpc.controller\_r module
+mpc controller\_r 
 --------------------------------------------
 
 .. automodule:: scripts.controllers.mpc.controller_r
@@ -21,11 +19,3 @@ scripts.controllers.mpc.controller\_r module
     :show-inheritance:
 
 
-
-Module contents
----------------
-
-.. automodule:: scripts.controllers.mpc
-    :members:
-    :undoc-members:
-    :show-inheritance:

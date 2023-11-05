@@ -1,10 +1,8 @@
-scripts.controllers.lqr package
+LQR
 ===============================
 
-Submodules
-----------
 
-scripts.controllers.lqr.controller module
+lqr controller
 -----------------------------------------
 
 .. automodule:: scripts.controllers.lqr.controller
@@ -12,7 +10,7 @@ scripts.controllers.lqr.controller module
     :undoc-members:
     :show-inheritance:
 
-scripts.controllers.lqr.controller\_r module
+lqr controller\_r module
 --------------------------------------------
 
 .. automodule:: scripts.controllers.lqr.controller_r
@@ -20,11 +18,3 @@ scripts.controllers.lqr.controller\_r module
     :undoc-members:
     :show-inheritance:
 
-
-Module contents
----------------
-
-.. automodule:: scripts.controllers.lqr
-    :members:
-    :undoc-members:
-    :show-inheritance:

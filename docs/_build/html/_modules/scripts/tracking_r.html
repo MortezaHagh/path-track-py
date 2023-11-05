@@ -39,7 +39,9 @@
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <p class="caption"><span class="caption-text">Contents:</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../scripts.html">Path Tracking</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../scripts.tracking.html">Tracking</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../scripts.controllers.html">Controllers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../scripts.pt_scripts.html">Tracking Scripts</a></li>
 </ul>
 
         </div>
@@ -81,26 +83,25 @@
 
 <span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;/home/piotr/catkin_ws/src/mh/PathTrackPy&#39;</span><span class="p">)</span>
 
-<span class="n">METHOD</span> <span class="o">=</span> <span class="s1">&#39;MPC2&#39;</span>  <span class="c1"># LQR - MPC2 - MPC - PurePursuit</span>
-<span class="k">if</span> <span class="n">METHOD</span> <span class="o">==</span><span class="s1">&#39;MPC&#39;</span><span class="p">:</span>
-    <span class="n">r_path</span> <span class="o">=</span> <span class="s1">&#39;/home/piotr/catkin_ws/src/mh/PathTrackPy/scripts/controllers/mpc/&#39;</span>
-<span class="k">elif</span> <span class="n">METHOD</span> <span class="o">==</span> <span class="s1">&#39;MPC2&#39;</span><span class="p">:</span>
-    <span class="n">r_path</span> <span class="o">=</span> <span class="s1">&#39;/home/piotr/catkin_ws/src/mh/PathTrackPy/scripts/controllers/mpc2/&#39;</span>
-<span class="k">elif</span> <span class="n">METHOD</span> <span class="o">==</span> <span class="s1">&#39;PurePursuit&#39;</span><span class="p">:</span>
-    <span class="n">r_path</span> <span class="o">=</span> <span class="s1">&#39;/home/piotr/catkin_ws/src/mh/PathTrackPy/scripts/controllers/pure_pursuit/&#39;</span>
-<span class="k">elif</span> <span class="n">METHOD</span> <span class="o">==</span> <span class="s1">&#39;LQR&#39;</span><span class="p">:</span>
-    <span class="n">r_path</span> <span class="o">=</span> <span class="s1">&#39;/home/piotr/catkin_ws/src/mh/PathTrackPy/scripts/controllers/lqr/&#39;</span>
+<span class="n">METHOD</span> <span class="o">=</span> <span class="s1">&#39;MPC2&#39;</span>  <span class="c1"># LQR - [MPC2 mpc2] - MPC - [PurePursuit pure_pursuit]</span>
+<span class="n">r_path</span> <span class="o">=</span> <span class="s1">&#39;/home/piotr/catkin_ws/src/mh/PathTrackPy/scripts/controllers/mpc2/&#39;</span>
 
 <span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">r_path</span><span class="p">)</span>
 
 <span class="kn">from</span> <span class="nn">controller_r</span> <span class="kn">import</span> <span class="n">Controller</span>
 
-<div class="viewcode-block" id="Tracking"><a class="viewcode-back" href="../../scripts.html#scripts.tracking_r.Tracking">[docs]</a><span class="k">class</span> <span class="nc">Tracking</span><span class="p">:</span>
+
+<div class="viewcode-block" id="Tracking"><a class="viewcode-back" href="../../scripts.tracking.html#scripts.tracking_r.Tracking">[docs]</a><span class="k">class</span> <span class="nc">Tracking</span><span class="p">:</span>
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+        <span class="c1"># setting</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">by_cost_map</span> <span class="o">=</span> <span class="kc">False</span>   <span class="c1"># False - True                    # ******************************* set</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">pose_method</span> <span class="o">=</span> <span class="s2">&quot;Odom&quot;</span> <span class="c1"># Tf  Odom                        # ******************************* set</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">start_method</span> <span class="o">=</span> <span class="s2">&quot;normal&quot;</span> <span class="c1"># from_global_plan - normal    # ******************************* set</span>
 
         <span class="c1"># initialize</span>
         <span class="n">rospy</span><span class="o">.</span><span class="n">on_shutdown</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">shutdown</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">ros_interface</span> <span class="o">=</span> <span class="n">ROSInterface</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ros_interface</span> <span class="o">=</span> <span class="n">ROSInterface</span><span class="p">(</span><span class="n">start_method</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">start_method</span><span class="p">,</span> <span class="n">by_cost_map</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">by_cost_map</span><span class="p">,</span> <span class="n">pose_method</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">pose_method</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">initialize</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">ros_interface</span><span class="o">.</span><span class="n">start</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ref_traj</span><span class="p">)</span>
         
@@ -112,22 +113,34 @@
     
     <span class="c1"># ----------------------- initialize -----------------------------------</span>
 
-<div class="viewcode-block" id="Tracking.initialize"><a class="viewcode-back" href="../../scripts.html#scripts.tracking_r.Tracking.initialize">[docs]</a>    <span class="k">def</span> <span class="nf">initialize</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="Tracking.initialize"><a class="viewcode-back" href="../../scripts.tracking.html#scripts.tracking_r.Tracking.initialize">[docs]</a>    <span class="k">def</span> <span class="nf">initialize</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">            Create reference path or trajectory.</span>
 <span class="sd">            Create Robot object.</span>
 <span class="sd">            Create Initial Plot.</span>
 <span class="sd">            Create Controller (tracker).</span>
 <span class="sd">        &quot;&quot;&quot;</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;initializing tracking&quot;</span><span class="p">)</span>
 
         <span class="c1"># base directory</span>
         <span class="n">ros_pkg</span> <span class="o">=</span> <span class="n">rospkg</span><span class="o">.</span><span class="n">RosPack</span><span class="p">()</span>
-        <span class="n">pkg_dir</span> <span class="o">=</span> <span class="n">ros_pkg</span><span class="o">.</span><span class="n">get_path</span><span class="p">(</span><span class="s1">&#39;path_tracking&#39;</span><span class="p">)</span>
+        <span class="n">pkg_dir</span> <span class="o">=</span> <span class="n">ros_pkg</span><span class="o">.</span><span class="n">get_path</span><span class="p">(</span><span class="s1">&#39;path_tracking_py&#39;</span><span class="p">)</span>
         <span class="n">data_dir</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">pkg_dir</span><span class="p">,</span> <span class="s1">&#39;data&#39;</span><span class="p">)</span>
 
-        <span class="c1"># # create reference Path/Trajectory/Waypoints</span>
+        <span class="c1"># create reference Path/Trajectory/Waypoints</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Creating Path&quot;</span><span class="p">)</span>
         <span class="n">ref_traj</span> <span class="o">=</span> <span class="n">CreatePath</span><span class="p">(</span><span class="n">data_dir</span><span class="p">)</span>
-        <span class="n">ref_traj</span><span class="o">.</span><span class="n">from_json</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;path1&quot;</span><span class="p">)</span>         <span class="c1"># path_1, path_2, from_json, generate_curved_waypoints  ************</span>
+        
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">start_method</span><span class="o">==</span><span class="s2">&quot;normal&quot;</span><span class="p">:</span>
+            <span class="k">while</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">ros_interface</span><span class="o">.</span><span class="n">got_plan</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;waiting for global plan&quot;</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">ros_interface</span><span class="o">.</span><span class="n">rate</span><span class="o">.</span><span class="n">sleep</span><span class="p">()</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">ros_interface</span><span class="o">.</span><span class="n">global_plan</span> <span class="o">==</span> <span class="p">[]:</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;global_plan is empty&quot;</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;got global plan&quot;</span><span class="p">)</span>
+            <span class="n">ref_traj</span><span class="o">.</span><span class="n">from_plan</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ros_interface</span><span class="o">.</span><span class="n">global_plan</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">ref_traj</span><span class="o">.</span><span class="n">from_json</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;path1&quot;</span><span class="p">)</span>  <span class="c1">#from_json(name=&quot;path_rviz_4&quot;)          # path_1, path_2, from_json, generate_curved_waypoints  ************ set</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">ref_traj</span> <span class="o">=</span> <span class="n">ref_traj</span>
         <span class="n">goal</span> <span class="o">=</span> <span class="p">[</span><span class="n">ref_traj</span><span class="o">.</span><span class="n">x</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">ref_traj</span><span class="o">.</span><span class="n">y</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]]</span>  <span class="c1"># last waypoint</span>
 
@@ -139,21 +152,26 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">save_res_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">save_res_path</span><span class="p">,</span> <span class="n">name</span> <span class="o">+</span><span class="s1">&#39;.json&#39;</span><span class="p">)</span>
 
         <span class="c1"># create robot with initial pose and velocity</span>
-        <span class="n">robot_</span> <span class="o">=</span> <span class="n">Robot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">ref_traj</span><span class="o">.</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">ref_traj</span><span class="o">.</span><span class="n">y</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">yaw</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">v</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">w</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Creating Robot&quot;</span><span class="p">)</span>
+        <span class="n">r_pose</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ros_interface</span><span class="o">.</span><span class="n">r_pose</span>
+        <span class="n">robot_</span> <span class="o">=</span> <span class="n">Robot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">r_pose</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">y</span><span class="o">=</span><span class="n">r_pose</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">yaw</span><span class="o">=</span><span class="n">r_pose</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">v</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">w</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
 
         <span class="c1"># speed profile</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Generate speeed profile&quot;</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">ref_traj</span><span class="o">.</span><span class="n">speed_profile</span><span class="p">(</span><span class="n">robot_</span><span class="p">)</span>
 
         <span class="c1"># plotting</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Creating Plotting&quot;</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">my_plot</span> <span class="o">=</span> <span class="n">Plotting</span><span class="p">(</span><span class="n">ref_traj</span><span class="p">,</span> <span class="n">robot_</span><span class="o">.</span><span class="n">pose</span><span class="p">,</span> <span class="n">goal</span><span class="p">)</span>
 
         <span class="c1"># controller</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Creating Controller&quot;</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">dt</span> <span class="o">=</span> <span class="mf">0.1</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">controller</span> <span class="o">=</span> <span class="n">Controller</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ros_interface</span><span class="p">,</span> <span class="n">ref_traj</span><span class="p">,</span> <span class="n">robot_</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">my_plot</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">dt</span><span class="p">)</span></div>
 
     <span class="c1"># ----------------------- run -----------------------------------</span>
 
-<div class="viewcode-block" id="Tracking.run"><a class="viewcode-back" href="../../scripts.html#scripts.tracking_r.Tracking.run">[docs]</a>    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="Tracking.run"><a class="viewcode-back" href="../../scripts.tracking.html#scripts.tracking_r.Tracking.run">[docs]</a>    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Start tracking</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;tracking started!&quot;</span><span class="p">)</span>
@@ -162,21 +180,21 @@
 
     <span class="c1"># ----------------------- final -----------------------------------</span>
 
-<div class="viewcode-block" id="Tracking.final"><a class="viewcode-back" href="../../scripts.html#scripts.tracking_r.Tracking.final">[docs]</a>    <span class="k">def</span> <span class="nf">final</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="Tracking.final"><a class="viewcode-back" href="../../scripts.tracking.html#scripts.tracking_r.Tracking.final">[docs]</a>    <span class="k">def</span> <span class="nf">final</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        This function calculates and reports errors, and then plots the final trajectory.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
         <span class="c1"># results reporting</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">results</span><span class="p">()</span>
-        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;mean error: &quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">dist_error</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;mean error: &quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">dist_error</span><span class="p">)</span></div>
 
-        <span class="c1"># plot final</span>
-        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;final plotting ...&quot;</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">my_plot</span><span class="o">.</span><span class="n">plot_final</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">save_pic_path</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">controller</span><span class="o">.</span><span class="n">rec_traj_x</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">controller</span><span class="o">.</span><span class="n">rec_traj_y</span><span class="p">)</span></div>
+        <span class="c1"># # plot final</span>
+        <span class="c1"># print(&quot;final plotting ...&quot;)</span>
+        <span class="c1"># self.my_plot.plot_final(self.save_pic_path, self.controller.rec_traj_x, self.controller.rec_traj_y)</span>
 
 
-<div class="viewcode-block" id="Tracking.results"><a class="viewcode-back" href="../../scripts.html#scripts.tracking_r.Tracking.results">[docs]</a>    <span class="k">def</span> <span class="nf">results</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="Tracking.results"><a class="viewcode-back" href="../../scripts.tracking.html#scripts.tracking_r.Tracking.results">[docs]</a>    <span class="k">def</span> <span class="nf">results</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;processing and saving path tracking results.</span>
 <span class="sd">            Calculate error.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -198,7 +216,7 @@
             <span class="n">json</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">outfile</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
             <span class="n">outfile</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="Tracking.shutdown"><a class="viewcode-back" href="../../scripts.html#scripts.tracking_r.Tracking.shutdown">[docs]</a>    <span class="k">def</span> <span class="nf">shutdown</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="Tracking.shutdown"><a class="viewcode-back" href="../../scripts.tracking.html#scripts.tracking_r.Tracking.shutdown">[docs]</a>    <span class="k">def</span> <span class="nf">shutdown</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">ros_interface</span><span class="o">.</span><span class="n">stop</span><span class="p">()</span>     </div></div>
 
 <span class="c1"># ------------------------------------------------------------------</span>

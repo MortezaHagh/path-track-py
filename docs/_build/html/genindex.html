@@ -40,7 +40,9 @@
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <p class="caption"><span class="caption-text">Contents:</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="scripts.html">Path Tracking</a></li>
+<li class="toctree-l1"><a class="reference internal" href="scripts.tracking.html">Tracking</a></li>
+<li class="toctree-l1"><a class="reference internal" href="scripts.controllers.html">Controllers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="scripts.pt_scripts.html">Tracking Scripts</a></li>
 </ul>
 
         </div>
@@ -89,7 +91,19 @@
 <h2 id="A">A</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="scripts.controllers.pure_pursuit.html#scripts.controllers.pure_pursuit.controller_r.Controller.adjust_max_speed">adjust_max_speed() (scripts.controllers.pure_pursuit.controller_r.Controller method)</a>
+</li>
+      <li><a href="scripts.controllers.mpc2.html#scripts.controllers.mpc2.controller_r.Controller.adjust_speed_horizon">adjust_speed_horizon() (scripts.controllers.mpc2.controller_r.Controller method)</a>
+</li>
       <li><a href="scripts.pt_scripts.html#scripts.pt_scripts.utils.angle_diff">angle_diff() (in module scripts.pt_scripts.utils)</a>
+</li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="scripts.pt_scripts.html#scripts.pt_scripts.plotting.Plotting.ani_init">ani_init() (scripts.pt_scripts.plotting.Plotting method)</a>
+</li>
+      <li><a href="scripts.pt_scripts.html#scripts.pt_scripts.plotting.Plotting.ani_update">ani_update() (scripts.pt_scripts.plotting.Plotting method)</a>
+</li>
+      <li><a href="scripts.pt_scripts.html#scripts.pt_scripts.plotting.Plotting.animate">animate() (scripts.pt_scripts.plotting.Plotting method)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -97,6 +111,18 @@
 <h2 id="C">C</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="scripts.controllers.mpc2.html#scripts.controllers.mpc2.controller_r.Controller.check_divergence">check_divergence() (scripts.controllers.mpc2.controller_r.Controller method)</a>
+
+      <ul>
+        <li><a href="scripts.controllers.pure_pursuit.html#scripts.controllers.pure_pursuit.controller_r.Controller.check_divergence">(scripts.controllers.pure_pursuit.controller_r.Controller method)</a>
+</li>
+      </ul></li>
+      <li><a href="scripts.controllers.mpc2.html#scripts.controllers.mpc2.controller_r.Controller.check_obstacle">check_obstacle() (scripts.controllers.mpc2.controller_r.Controller method)</a>
+
+      <ul>
+        <li><a href="scripts.controllers.pure_pursuit.html#scripts.controllers.pure_pursuit.controller_r.Controller.check_obstacle">(scripts.controllers.pure_pursuit.controller_r.Controller method)</a>
+</li>
+      </ul></li>
       <li><a href="scripts.pt_scripts.html#scripts.pt_scripts.ros_interface.ROSInterface.check_odom">check_odom() (scripts.pt_scripts.ros_interface.ROSInterface method)</a>
 </li>
       <li><a href="scripts.controllers.lqr.html#scripts.controllers.lqr.controller.Controller.control">control() (scripts.controllers.lqr.controller.Controller method)</a>
@@ -189,10 +215,10 @@
 <h2 id="F">F</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="scripts.html#scripts.tracking.Tracking.final">final() (scripts.tracking.Tracking method)</a>
+      <li><a href="scripts.tracking.html#scripts.tracking.Tracking.final">final() (scripts.tracking.Tracking method)</a>
 
       <ul>
-        <li><a href="scripts.html#scripts.tracking_r.Tracking.final">(scripts.tracking_r.Tracking method)</a>
+        <li><a href="scripts.tracking.html#scripts.tracking_r.Tracking.final">(scripts.tracking_r.Tracking method)</a>
 </li>
       </ul></li>
       <li><a href="scripts.pt_scripts.html#scripts.pt_scripts.utils.find_nearest_ind">find_nearest_ind() (in module scripts.pt_scripts.utils)</a>
@@ -215,6 +241,8 @@
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="scripts.pt_scripts.html#scripts.pt_scripts.create_path.CreatePath.from_json">from_json() (scripts.pt_scripts.create_path.CreatePath method)</a>
 </li>
+      <li><a href="scripts.pt_scripts.html#scripts.pt_scripts.create_path.CreatePath.from_plan">from_plan() (scripts.pt_scripts.create_path.CreatePath method)</a>
+</li>
   </ul></td>
 </tr></table>
 
@@ -233,14 +261,14 @@
         <li><a href="scripts.controllers.mpc2.html#scripts.controllers.mpc2.controller_r.PID.get_control_inputs">(scripts.controllers.mpc2.controller_r.PID method)</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="scripts.controllers.pure_pursuit.html#scripts.controllers.pure_pursuit.controller.Controller.get_lookahead_index">get_lookahead_index() (scripts.controllers.pure_pursuit.controller.Controller method)</a>
 
       <ul>
         <li><a href="scripts.controllers.pure_pursuit.html#scripts.controllers.pure_pursuit.controller_r.Controller.get_lookahead_index">(scripts.controllers.pure_pursuit.controller_r.Controller method)</a>
 </li>
       </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="scripts.pt_scripts.html#scripts.pt_scripts.create_path.CreatePath.get_pose_vec">get_pose_vec() (scripts.pt_scripts.create_path.CreatePath method)</a>
 </li>
       <li><a href="scripts.controllers.pure_pursuit.html#scripts.controllers.pure_pursuit.controller.Controller.get_target_index">get_target_index() (scripts.controllers.pure_pursuit.controller.Controller method)</a>
@@ -251,16 +279,22 @@
       </ul></li>
       <li><a href="scripts.pt_scripts.html#scripts.pt_scripts.ros_interface.ROSInterface.get_tf">get_tf() (scripts.pt_scripts.ros_interface.ROSInterface method)</a>
 </li>
+      <li><a href="scripts.pt_scripts.html#scripts.pt_scripts.ros_interface.ROSInterface.global_plan_callback">global_plan_callback() (scripts.pt_scripts.ros_interface.ROSInterface method)</a>
+</li>
   </ul></td>
 </tr></table>
 
 <h2 id="I">I</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="scripts.html#scripts.tracking.Tracking.initialize">initialize() (scripts.tracking.Tracking method)</a>
+      <li><a href="scripts.controllers.mpc2.html#scripts.controllers.mpc2.controller_r.Controller.initialize">initialize() (scripts.controllers.mpc2.controller_r.Controller method)</a>
 
       <ul>
-        <li><a href="scripts.html#scripts.tracking_r.Tracking.initialize">(scripts.tracking_r.Tracking method)</a>
+        <li><a href="scripts.pt_scripts.html#scripts.pt_scripts.plotting.Plotting.initialize">(scripts.pt_scripts.plotting.Plotting method)</a>
+</li>
+        <li><a href="scripts.tracking.html#scripts.tracking.Tracking.initialize">(scripts.tracking.Tracking method)</a>
+</li>
+        <li><a href="scripts.tracking.html#scripts.tracking_r.Tracking.initialize">(scripts.tracking_r.Tracking method)</a>
 </li>
       </ul></li>
   </ul></td>
@@ -269,6 +303,8 @@
 <h2 id="M">M</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="scripts.pt_scripts.html#scripts.pt_scripts.ros_interface.ROSInterface.mb_cone_cb">mb_cone_cb() (scripts.pt_scripts.ros_interface.ROSInterface method)</a>
+</li>
       <li><a href="scripts.pt_scripts.html#scripts.pt_scripts.utils.mod_angle">mod_angle() (in module scripts.pt_scripts.utils)</a>
 </li>
       <li><a href="scripts.controllers.pure_pursuit.html#scripts.controllers.pure_pursuit.controller.Controller.move_1">move_1() (scripts.controllers.pure_pursuit.controller.Controller method)</a>
@@ -333,15 +369,21 @@
       </ul></li>
       <li><a href="scripts.pt_scripts.html#scripts.pt_scripts.create_path.CreatePath.plot">plot() (scripts.pt_scripts.create_path.CreatePath method)</a>
 </li>
+      <li><a href="scripts.pt_scripts.html#scripts.pt_scripts.plotting.Plotting.plot_anim">plot_anim() (scripts.pt_scripts.plotting.Plotting method)</a>
+</li>
       <li><a href="scripts.pt_scripts.html#scripts.pt_scripts.plotting.Plotting.plot_final">plot_final() (scripts.pt_scripts.plotting.Plotting method)</a>
+</li>
+      <li><a href="scripts.pt_scripts.html#scripts.pt_scripts.plotting.Plotting">Plotting (class in scripts.pt_scripts.plotting)</a>
 </li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="scripts.pt_scripts.html#scripts.pt_scripts.plotting.Plotting">Plotting (class in scripts.pt_scripts.plotting)</a>
-</li>
       <li><a href="scripts.pt_scripts.html#scripts.pt_scripts.create_path_rviz.CreatePathRviz.pose_callback">pose_callback() (scripts.pt_scripts.create_path_rviz.CreatePathRviz method)</a>
 </li>
       <li><a href="scripts.pt_scripts.html#scripts.pt_scripts.create_path.CreatePath.post_proc">post_proc() (scripts.pt_scripts.create_path.CreatePath method)</a>
+</li>
+      <li><a href="scripts.pt_scripts.html#scripts.pt_scripts.ros_interface.ROSInterface.pred_pub">pred_pub() (scripts.pt_scripts.ros_interface.ROSInterface method)</a>
+</li>
+      <li><a href="scripts.controllers.mpc2.html#scripts.controllers.mpc2.controller_r.Controller.predict">predict() (scripts.controllers.mpc2.controller_r.Controller method)</a>
 </li>
       <li><a href="scripts.pt_scripts.html#scripts.pt_scripts.ros_interface.ROSInterface.publish_once">publish_once() (scripts.pt_scripts.ros_interface.ROSInterface method)</a>
 </li>
@@ -365,10 +407,12 @@
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="scripts.pt_scripts.html#scripts.pt_scripts.ros_interface.ROSInterface.record_trajectory">record_trajectory() (scripts.pt_scripts.ros_interface.ROSInterface method)</a>
 </li>
-      <li><a href="scripts.html#scripts.tracking.Tracking.results">results() (scripts.tracking.Tracking method)</a>
+      <li><a href="scripts.controllers.mpc2.html#scripts.controllers.mpc2.controller_r.RefData">RefData (class in scripts.controllers.mpc2.controller_r)</a>
+</li>
+      <li><a href="scripts.tracking.html#scripts.tracking.Tracking.results">results() (scripts.tracking.Tracking method)</a>
 
       <ul>
-        <li><a href="scripts.html#scripts.tracking_r.Tracking.results">(scripts.tracking_r.Tracking method)</a>
+        <li><a href="scripts.tracking.html#scripts.tracking_r.Tracking.results">(scripts.tracking_r.Tracking method)</a>
 </li>
       </ul></li>
   </ul></td>
@@ -377,10 +421,10 @@
 </li>
       <li><a href="scripts.pt_scripts.html#scripts.pt_scripts.ros_interface.ROSInterface">ROSInterface (class in scripts.pt_scripts.ros_interface)</a>
 </li>
-      <li><a href="scripts.html#scripts.tracking.Tracking.run">run() (scripts.tracking.Tracking method)</a>
+      <li><a href="scripts.tracking.html#scripts.tracking.Tracking.run">run() (scripts.tracking.Tracking method)</a>
 
       <ul>
-        <li><a href="scripts.html#scripts.tracking_r.Tracking.run">(scripts.tracking_r.Tracking method)</a>
+        <li><a href="scripts.tracking.html#scripts.tracking_r.Tracking.run">(scripts.tracking_r.Tracking method)</a>
 </li>
       </ul></li>
   </ul></td>
@@ -391,36 +435,22 @@
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="scripts.pt_scripts.html#scripts.pt_scripts.create_path_rviz.CreatePathRviz.save_path">save_path() (scripts.pt_scripts.create_path_rviz.CreatePathRviz method)</a>
 </li>
-      <li><a href="scripts.controllers.html#module-scripts.controllers">scripts.controllers (module)</a>
-</li>
-      <li><a href="scripts.controllers.lqr.html#module-scripts.controllers.lqr">scripts.controllers.lqr (module)</a>
-</li>
       <li><a href="scripts.controllers.lqr.html#module-scripts.controllers.lqr.controller">scripts.controllers.lqr.controller (module)</a>
 </li>
       <li><a href="scripts.controllers.lqr.html#module-scripts.controllers.lqr.controller_r">scripts.controllers.lqr.controller_r (module)</a>
-</li>
-      <li><a href="scripts.controllers.mpc.html#module-scripts.controllers.mpc">scripts.controllers.mpc (module)</a>
 </li>
       <li><a href="scripts.controllers.mpc.html#module-scripts.controllers.mpc.controller">scripts.controllers.mpc.controller (module)</a>
 </li>
       <li><a href="scripts.controllers.mpc.html#module-scripts.controllers.mpc.controller_r">scripts.controllers.mpc.controller_r (module)</a>
 </li>
-      <li><a href="scripts.controllers.mpc2.html#module-scripts.controllers.mpc2">scripts.controllers.mpc2 (module)</a>
-</li>
       <li><a href="scripts.controllers.mpc2.html#module-scripts.controllers.mpc2.controller">scripts.controllers.mpc2.controller (module)</a>
 </li>
       <li><a href="scripts.controllers.mpc2.html#module-scripts.controllers.mpc2.controller_r">scripts.controllers.mpc2.controller_r (module)</a>
-</li>
-      <li><a href="scripts.controllers.pure_pursuit.html#module-scripts.controllers.pure_pursuit">scripts.controllers.pure_pursuit (module)</a>
 </li>
       <li><a href="scripts.controllers.pure_pursuit.html#module-scripts.controllers.pure_pursuit.controller">scripts.controllers.pure_pursuit.controller (module)</a>
 </li>
       <li><a href="scripts.controllers.pure_pursuit.html#module-scripts.controllers.pure_pursuit.controller_r">scripts.controllers.pure_pursuit.controller_r (module)</a>
 </li>
-      <li><a href="scripts.pt_scripts.html#module-scripts.pt_scripts">scripts.pt_scripts (module)</a>
-</li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="scripts.pt_scripts.html#module-scripts.pt_scripts.create_path">scripts.pt_scripts.create_path (module)</a>
 </li>
       <li><a href="scripts.pt_scripts.html#module-scripts.pt_scripts.create_path_rviz">scripts.pt_scripts.create_path_rviz (module)</a>
@@ -429,13 +459,23 @@
 </li>
       <li><a href="scripts.pt_scripts.html#module-scripts.pt_scripts.ros_interface">scripts.pt_scripts.ros_interface (module)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="scripts.pt_scripts.html#module-scripts.pt_scripts.utils">scripts.pt_scripts.utils (module)</a>
 </li>
-      <li><a href="scripts.html#module-scripts.tracking">scripts.tracking (module)</a>
+      <li><a href="scripts.tracking.html#module-scripts.tracking">scripts.tracking (module)</a>
 </li>
-      <li><a href="scripts.html#module-scripts.tracking_r">scripts.tracking_r (module)</a>
+      <li><a href="scripts.tracking.html#module-scripts.tracking_r">scripts.tracking_r (module)</a>
 </li>
-      <li><a href="scripts.html#scripts.tracking_r.Tracking.shutdown">shutdown() (scripts.tracking_r.Tracking method)</a>
+      <li><a href="scripts.controllers.mpc2.html#scripts.controllers.mpc2.controller_r.Controller.send_goal">send_goal() (scripts.controllers.mpc2.controller_r.Controller method)</a>
+
+      <ul>
+        <li><a href="scripts.controllers.pure_pursuit.html#scripts.controllers.pure_pursuit.controller_r.Controller.send_goal">(scripts.controllers.pure_pursuit.controller_r.Controller method)</a>
+</li>
+        <li><a href="scripts.pt_scripts.html#scripts.pt_scripts.ros_interface.ROSInterface.send_goal">(scripts.pt_scripts.ros_interface.ROSInterface method)</a>
+</li>
+      </ul></li>
+      <li><a href="scripts.tracking.html#scripts.tracking_r.Tracking.shutdown">shutdown() (scripts.tracking_r.Tracking method)</a>
 </li>
       <li><a href="scripts.pt_scripts.html#scripts.pt_scripts.create_path_rviz.CreatePathRviz.shutdown_hook">shutdown_hook() (scripts.pt_scripts.create_path_rviz.CreatePathRviz method)</a>
 
@@ -465,10 +505,10 @@
 </li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="scripts.html#scripts.tracking.Tracking">Tracking (class in scripts.tracking)</a>
+      <li><a href="scripts.tracking.html#scripts.tracking.Tracking">Tracking (class in scripts.tracking)</a>
 
       <ul>
-        <li><a href="scripts.html#scripts.tracking_r.Tracking">(class in scripts.tracking_r)</a>
+        <li><a href="scripts.tracking.html#scripts.tracking_r.Tracking">(class in scripts.tracking_r)</a>
 </li>
       </ul></li>
   </ul></td>
@@ -499,8 +539,16 @@
       </ul></li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="scripts.controllers.mpc2.html#scripts.controllers.mpc2.controller_r.Controller.update_index_horizon">update_index_horizon() (scripts.controllers.mpc2.controller_r.Controller method)</a>
+</li>
       <li><a href="scripts.pt_scripts.html#scripts.pt_scripts.plotting.Plotting.update_plot">update_plot() (scripts.pt_scripts.plotting.Plotting method)</a>
 </li>
+      <li><a href="scripts.controllers.mpc2.html#scripts.controllers.mpc2.controller_r.Controller.update_wps_status">update_wps_status() (scripts.controllers.mpc2.controller_r.Controller method)</a>
+
+      <ul>
+        <li><a href="scripts.controllers.pure_pursuit.html#scripts.controllers.pure_pursuit.controller_r.Controller.update_wps_status">(scripts.controllers.pure_pursuit.controller_r.Controller method)</a>
+</li>
+      </ul></li>
   </ul></td>
 </tr></table>
 
